@@ -921,7 +921,7 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
 
 
 /* ---------- Nächste Station schiebt sich von unten herein ---------- */
-.peek{position:fixed;inset:0;z-index:45;pointer-events:none;visibility:hidden}
+.peek{position:fixed;inset:0;z-index:28;pointer-events:none;visibility:hidden}
 .peek.on{visibility:visible}
 .peek-dim{position:absolute;inset:0;background:#07080a;opacity:0}
 .peek-sheet{position:absolute;left:0;right:0;top:0;height:100%;transform:translate3d(0,100%,0);will-change:transform;overflow:hidden;
@@ -936,9 +936,12 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
 .peek-in .hero > *{animation:none!important}
 .peek-in .fadenline path{animation:none}
 @media (min-width:1100px){.peek-sheet,.peek-dim{left:var(--side)}.peek-in{max-width:1040px}.peek-in .hero{--extra:max(0px,calc(100vw - var(--side) - 1040px))}}
-.station.via-peek .hero > *,.station.via-peek .hero .deco,.station.via-peek .hero .deco::before,.station.via-peek .hero .deco::after,.station.via-peek .art .d,
-.station.via-peek .hero .hl,.station.via-peek .cur,.station.via-peek .val{animation:none!important}
-.station.via-peek .art .d{stroke-dasharray:none}
+.station.via-peek .hero > *,.station.via-peek .hero .deco,.station.via-peek .hero .deco::before,.station.via-peek .hero .deco::after,
+.station.via-peek .cur,.station.via-peek .val{animation:none!important}
+.station.via-peek[data-in] .hero > h1,.station.via-peek[data-anim] .hero > .kicker,.station.via-peek[data-anim] .hero > .lede{animation:none!important}
+/* Zeichnung und Markierung laufen dort weiter, wo das hochfahrende Blatt war */
+.station.via-peek .art .d{stroke-dasharray:1;animation:drawThread .9s cubic-bezier(.16,1,.3,1) both!important;animation-delay:calc(.08s + var(--d,0) * .08s - var(--pk-t,0ms))!important}
+.station.via-peek .hero .hl{animation:marker .42s var(--ease) both!important;animation-delay:calc(.12s - var(--pk-t,0ms))!important}
 
 
 /* Vorschau-Blatt in der Strecke: scrollt nativ mit, dadurch flüssig */
@@ -954,10 +957,13 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
 @media (min-width:700px){.rw-in .hero{padding-top:16px!important}}
 @media (max-width:699px){.rw-in{transform:translate3d(0,-2px,0)}}
 .rw-in .hero > *{animation:none!important}
-.rw-in .art .d{stroke-dasharray:1;stroke-dashoffset:0;animation:none}
-@supports (animation-timeline: view()){
-  .rw-in .art .d{animation:drawThread linear both!important;animation-timeline:view()!important;animation-range:entry 10% entry 90%!important}
-}
+.rw-in .hero .hl,.peek-in .hero .hl{background-size:0% 80%;color:var(--ink);animation:none!important}
+.rw-in.go .hero .hl,.peek-in.go .hero .hl{animation:marker .42s var(--ease) .12s both!important}
+.rw-in.go .art .d,.peek-in.go .art .d{stroke-dasharray:1;animation:drawThread .9s cubic-bezier(.16,1,.3,1) both!important;animation-delay:calc(.08s + var(--d,0) * .08s)!important}
+.pk-glow{position:absolute;left:0;right:0;top:0;height:220px;z-index:4;pointer-events:none;background:linear-gradient(var(--pk-a,transparent),rgba(0,0,0,0))}
+.rw-sheet::before,.peek-sheet::before{display:none!important}
+.rw-in .art .d{stroke-dasharray:1;stroke-dashoffset:1;animation:none!important}
+
 .runway.armed .rw-sheet{animation:rwIn .55s var(--ease) both}
 @keyframes rwIn{from{transform:translate3d(0,46px,0);opacity:0}to{transform:none;opacity:1}}
 @media (min-width:1100px){.rw-in{max-width:1040px}.station .runway{--extra:max(0px,calc(100vw - var(--side) - 1040px))}}
@@ -1135,7 +1141,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 14:33</p>
+  <p class="buildtag">Stand: 16.11.2026, 14:52</p>
 </nav>
 
 <main id="main">
@@ -1989,7 +1995,7 @@ stations.forEach(function(s,i){var t=s.dataset.title,m=+s.dataset.min||0,type=s.
     nc.innerHTML='<div class="sw-line" aria-hidden="true"><i></i><b></b></div><div class="sw-row"><svg class="sw-ring" viewBox="0 0 48 48" aria-hidden="true"><circle class="bg" cx="24" cy="24" r="20"/><circle class="fg" cx="24" cy="24" r="20" pathLength="1"/><path class="ar" d="M16 24h15M25 17.5l6.5 6.5-6.5 6.5"/></svg><span class="sw-txt"><small>'+lab+'</small><b>'+esc(tt)+'</b><em class="sw-hint"></em></span></div>';
     (function(target){nc.addEventListener("click",function(){go(target)});nc.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go(target)}})})(last?0:i+1)}
   if(nc){c.appendChild(nc);if(i<N-1){var rw=el("div",{class:"runway","aria-hidden":"true"}),nx=stations[i+1],hh=nx.querySelector(".hero");
-    var sh=el("div",{class:"rw-sheet"});sh.innerHTML='<div class="peek-grab"></div><div class="rw-in"></div>';
+    var sh=el("div",{class:"rw-sheet"});sh.innerHTML='<div class="pk-glow"></div><div class="peek-grab"></div><div class="rw-in"></div>';
     if(hh){var cl=hh.cloneNode(true);cl.querySelectorAll("[id]").forEach(function(n){n.removeAttribute("id")});sh.querySelector(".rw-in").appendChild(cl);sh.querySelector(".rw-in").setAttribute("data-look",nx.getAttribute("data-look"))}
     rw.appendChild(sh);c.appendChild(rw)}}});
 /* Farbe der nächsten Station an ihr Vorschau-Blatt geben */
@@ -2074,11 +2080,12 @@ function swapTo(i,dir,pk){var old=stations[cur];stations.forEach(function(x){x.c
   moreEl.classList.remove("on");setTimeout(reqMore,350)}
 function fromHash(){var h=(location.hash||"").replace("#",""),i=ids.indexOf(h);show(i<0?0:i)}
 function go(i){if(i<0||i>=N)return;if(peekBusy)return;
-  if(i===cur+1&&i>0&&!RM&&cur>=0){peekTo(i,0);return}
+  if(i===cur+1&&i>0&&!RM&&cur>=0){peekTo(i,false);return}
   nav(i)}
 function nav(i){if(location.hash==="#"+ids[i])show(i);else location.hash=ids[i]}
 /* Vorschau-Blatt */
 var peek=el("div",{class:"peek js-only","aria-hidden":"true"});peek.innerHTML='<div class="peek-dim"></div><div class="peek-sheet"><div class="peek-grab"></div><div class="peek-in"></div></div>';document.body.appendChild(peek);
+var pGlow=document.createElement("div");pGlow.className="pk-glow";peek.querySelector(".peek-sheet").insertBefore(pGlow,peek.querySelector(".peek-sheet").firstChild);
 var pSheet=peek.querySelector(".peek-sheet"),pDim=peek.querySelector(".peek-dim"),pIn=peek.querySelector(".peek-in"),pFor=-1,peekBusy=false,peekPx=0;
 var mainEl=document.getElementById("main");
 function preparePeek(t){if(pFor===t)return;var src=stations[t].querySelector(".hero");if(!src)return;var c=src.cloneNode(true);
@@ -2097,18 +2104,34 @@ function setPeek(px){peekPx=Math.max(0,px);if(!peekPx){peek.classList.remove("on
   var k=Math.min(1,peekPx/H),lift=(pPadTop-14)*(1-k*k);pIn.style.transform="translate3d(0,"+(-Math.max(0,lift)).toFixed(1)+"px,0)";
   pSheet.style.setProperty("--pk-o",String(Math.max(0,1-k*1.3)))}
 var PEEK_TH=Math.max(110,Math.min(150,innerHeight*.18));document.documentElement.style.setProperty("--runway",Math.round(PEEK_TH*1.75)+"px");
-function peekTo(t,fromPx){if(peekBusy)return;peekBusy=true;preparePeek(t);var H=innerHeight,from=Math.max(0,Math.min(H,fromPx||0));
-  moreEl.classList.remove("on");var rs=stations[cur]&&stations[cur].querySelector(".rw-sheet");
-  setPeek(from||1);if(pIn.firstChild)pIn.firstChild.style.setProperty("--draw","1");pIn.style.transform="";pSheet.style.borderRadius="28px 28px 0 0";
-  var ih=rs&&rs.querySelector("h1"),oh=pIn.querySelector("h1"),lift0=(ih&&oh&&from>1)?(oh.getBoundingClientRect().top-ih.getBoundingClientRect().top):Math.max(0,pPadTop-14);
-  if(rs)rs.style.visibility="hidden";
-  var dur=from?320:420,ez="cubic-bezier(.16,1,.3,1)";
-  var a1=pSheet.animate([{transform:"translate3d(0,"+(H-from)+"px,0)"},{transform:"translate3d(0,0,0)"}],{duration:dur,easing:ez,fill:"forwards"});
-  pIn.animate([{transform:"translate3d(0,"+(-lift0)+"px,0)"},{transform:"translate3d(0,0,0)"}],{duration:dur,easing:ez,fill:"forwards"});
-  pDim.animate([{opacity:Math.min(.38,from/H*.7)},{opacity:.3}],{duration:dur,easing:ez,fill:"forwards"});
-  a1.onfinish=function(){resetSw();pull=0;viaPeek=true;show(t);if(location.hash!=="#"+ids[t])location.hash=ids[t];
-    var a2=pSheet.animate([{opacity:1},{opacity:0}],{duration:240,easing:"ease-out",fill:"forwards"});pDim.animate([{opacity:.3},{opacity:0}],{duration:240,fill:"forwards"});
-    a2.onfinish=function(){[pSheet,pIn,pDim].forEach(function(n){n.getAnimations().forEach(function(x){x.cancel()})});setPeek(0);pIn.style.transform="";pFor=-1;peekBusy=false;if(rs)rs.style.visibility=""}}}
+function lockScroll(on){var f=lockScroll.f||(lockScroll.f=function(e){e.preventDefault()});["touchmove","wheel"].forEach(function(ty){if(on)window.addEventListener(ty,f,{passive:false});else window.removeEventListener(ty,f,{passive:false})})}
+function tyOf(el){var m=getComputedStyle(el).transform;if(!m||m==="none")return 0;var v=m.match(/matrix(3d)?\(([^)]+)\)/);if(!v)return 0;var q=v[2].split(",").map(parseFloat);return v[1]?q[13]:q[5]}
+/* Nächste Station hochfahren: das Blatt in der Seite (nach dem Ziehen) oder das Overlay (Weiter-Knopf).
+   Die Zeichnung startet schon im Blatt und läuft auf der echten Station nahtlos weiter. */
+function peekTo(t,inflow){if(peekBusy)return;peekBusy=true;moreEl.classList.remove("on");lockScroll(true);
+  var H=innerHeight,OV=30,ez="cubic-bezier(.22,1,.36,1)",sheet,inner,glow,top0,anims=[],ov=false;
+  preparePeek(t);pIn.style.transform="";pSheet.style.transform="";
+  var pk=pIn.querySelector(".kicker"),Kref=pk?pk.getBoundingClientRect().top-pSheet.getBoundingClientRect().top-pSheet.clientTop:0;
+  var rs=inflow&&stations[cur]&&stations[cur].querySelector(".rw-sheet");
+  if(rs&&rs.getBoundingClientRect().top<H-10){window.scrollTo(0,scrollY);sheet=rs;inner=rs.querySelector(".rw-in");glow=rs.querySelector(".pk-glow");top0=rs.getBoundingClientRect().top;sheet.style.height=(H+OV*2)+"px"}
+  else{ov=true;sheet=pSheet;inner=pIn;glow=pGlow;top0=H;sheet.style.height="calc(100% + "+OV+"px)";sheet.style.borderRadius="28px 28px 0 0";sheet.style.transform="translate3d(0,"+H+"px,0)";peek.classList.add("on")}
+  var dy=-OV-top0,dist=Math.abs(dy),dur=Math.round(380+240*Math.min(1,dist/H));
+  var kc=inner.querySelector(".kicker"),ck0=kc?kc.getBoundingClientRect().top:0,ty0=ov?0:tyOf(inner),L=Kref-ck0-dy;
+  inner.classList.add("go");var tStart=performance.now(),c0=cur;
+  anims.push(sheet.animate([{transform:"translate3d(0,"+(ov?H:0)+"px,0)"},{transform:"translate3d(0,"+(ov?-OV:dy)+"px,0)"}],{duration:dur,easing:ez,fill:"forwards"}));
+  anims.push(inner.animate([{transform:"translate3d(0,"+ty0+"px,0)"},{transform:"translate3d(0,"+(ty0+L)+"px,0)"}],{duration:dur,easing:ez,fill:"forwards"}));
+  if(glow)anims.push(glow.animate([{opacity:1},{opacity:0}],{duration:dur,easing:"ease-out",fill:"forwards"}));
+  if(ov)anims.push(pDim.animate([{opacity:0},{opacity:.3}],{duration:dur,easing:ez,fill:"forwards"}));
+  anims[0].onfinish=function(){var F=kc?kc.getBoundingClientRect():null;
+    if(cur!==c0){anims.forEach(function(x){x.cancel()});inner.classList.remove("go");inner.style.transform="";sheet.style.height="";sheet.style.transform="";if(ov){peek.classList.remove("on");sheet.style.borderRadius=""}pFor=-1;lockScroll(false);peekBusy=false;return}
+    stations[t].style.setProperty("--pk-t",Math.round(performance.now()-tStart)+"ms");
+    resetSw();pull=0;viaPeek=true;show(t);if(location.hash!=="#"+ids[t])location.hash=ids[t];
+    anims.forEach(function(x){x.cancel()});inner.classList.remove("go");inner.style.transform="";sheet.style.height="";sheet.style.transform="";
+    if(ov){peek.classList.remove("on");sheet.style.borderRadius="";pFor=-1}
+    var rk=stations[t].querySelector(".hero > .kicker"),hero=stations[t].querySelector(".hero");
+    if(F&&rk&&hero&&!RM){var R=rk.getBoundingClientRect(),dX=F.left-R.left,dY=F.top-R.top;
+      if(Math.abs(dX)>.5||Math.abs(dY)>.5)hero.animate([{transform:"translate3d("+dX+"px,"+dY+"px,0)"},{transform:"translate3d(0,0,0)"}],{duration:300,easing:ez})}
+    lockScroll(false);peekBusy=false}}
 window.addEventListener("hashchange",fromHash);
 document.getElementById("prev").addEventListener("click",function(){go(cur-1)});
 document.getElementById("next").addEventListener("click",function(){go(cur<N-1?cur+1:0)});
@@ -2141,14 +2164,14 @@ function armed(){var r=curRun();return !!(r&&r.classList.contains("armed"))}
 function arm(){var r=curRun(),sw=curSw();if(!r||armed())return;r.classList.add("armed");pausedAtRest=true;if(sw&&!RM){sw.classList.remove("armed");void sw.offsetWidth;sw.classList.add("armed")}}
 function disarm(){var r=curRun();if(r&&armed()){r.classList.remove("armed");var sw=curSw();if(sw)sw.classList.remove("armed")}pausedAtRest=false}
 function backToRest(){var r=restY();if(!isFinite(r))return;backing=true;window.scrollTo({top:r,behavior:RM?"auto":"smooth"});setTimeout(function(){backing=false},450)}
-function crossSw(){var tgt=cur===N-1?0:cur+1;pullReady=false;var rs=stations[cur].querySelector(".rw-sheet");if(tgt>0&&!RM&&rs){peekTo(tgt,innerHeight-rs.getBoundingClientRect().top)}else go(tgt)}
+function crossSw(){var tgt=cur===N-1?0:cur+1;pullReady=false;if(tgt>0&&!RM&&stations[cur].querySelector(".rw-sheet")){peekTo(tgt,true)}else go(tgt)}
 var lastT=0,flung=false;
 function onScrollPull(){if(peekBusy||cur<0||!curRun())return;var r=restY(),over=scrollY-r,prev=lastSY-r,now=performance.now(),v=Math.abs(scrollY-lastSY)/Math.max(1,now-lastT);lastSY=scrollY;lastT=now;
   if(armed()&&over<-(padB()+20))disarm();
   if(over>0&&prev<=0&&v>3.2)flung=true;
   setPull(armed()&&over>0?over/PEEK_TH:0)}
 function onIdle(){if(peekBusy||cur<0||!curRun()||touching)return;var r=restY(),over=scrollY-r;
-  if(!armed()){if(Math.abs(over)<=4)arm();return}
+  if(!armed()){if(Math.abs(over)<=4){arm();flung=false}return}
   if(over<=4){flung=false;return}
   if(pullReady&&!flung&&!backing&&performance.now()-lastUser<1500){crossSw()}else{flung=false;backToRest()}}
 /* Nur echtes Scrollen darf die Schwelle überqueren, nicht etwa eine Seite, die kürzer wird */
