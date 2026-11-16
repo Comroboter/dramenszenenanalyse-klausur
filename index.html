@@ -1203,6 +1203,8 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
 .back-ov{position:fixed;inset:0;z-index:27;overflow:hidden;background-color:var(--paper);border-radius:26px 26px 0 0;border-top:1px solid var(--rule);pointer-events:none;will-change:transform;box-shadow:0 -30px 70px -10px rgba(0,0,0,.55)}
 @media (min-width:1100px){.back-ov{left:var(--side)}}
 .back-ov > .station{margin:0;display:block}
+.back-ov.sink{border-top-width:2px}
+.back-ov.sink::before{background:var(--pk,var(--rule));opacity:.8}
 .back-ov::before{content:"";position:absolute;z-index:5;top:10px;left:50%;width:44px;height:5px;margin-left:-22px;border-radius:5px;background:var(--rule)}
 .backhint{position:fixed;z-index:29;left:50%;top:calc(var(--sat) + 64px);transform:translate3d(-50%,-14px,0);opacity:0;pointer-events:none;
   display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:30px;background:var(--sheet);border:1px solid var(--rule);box-shadow:0 12px 30px -14px rgba(0,0,0,.6);white-space:nowrap}
@@ -1241,7 +1243,12 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
 .station .content > .runway{animation:none!important;transition:opacity .35s var(--ease)}
 .fl .station .content > .runway{opacity:0}
 /* Schatten der Blätter nur nach oben, nicht seitlich über die Leiste */
-.rw-sheet,.peek-sheet{-webkit-clip-path:inset(-120px 0 0 0);clip-path:inset(-120px 0 0 0)}
+.peek-sheet{-webkit-clip-path:inset(-120px 0 0 0);clip-path:inset(-120px 0 0 0)}
+/* Vorschau: eigene Ebene (kein spätes Nachzeichnen beim Scrollen), Licht darüber als feste Fläche statt Schatten */
+.rw-sheet{box-shadow:none!important;will-change:transform;contain:paint}
+.runway::before{content:"";position:absolute;left:calc(-1 * var(--padx) - var(--exl,0px));right:calc(-1 * var(--padx) - var(--extra,0px));top:calc(-1 * var(--rw-up,0px) - 90px);height:90px;pointer-events:none;
+  background:linear-gradient(to top,var(--pk-a,transparent),rgba(0,0,0,0));opacity:.85;
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.35),#000 18%,#000 82%,rgba(0,0,0,.35));mask-image:linear-gradient(90deg,rgba(0,0,0,.35),#000 18%,#000 82%,rgba(0,0,0,.35))}
 .mnd{position:absolute;top:16px;left:22px;width:calc(100% - 44px);height:16px;overflow:hidden;pointer-events:none}
 .mnd path{fill:none;stroke-linecap:square}
 .mnd .mb{stroke:#aa703c;stroke-width:1.8;opacity:.6}
@@ -1398,7 +1405,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 20:21</p>
+  <p class="buildtag">Stand: 16.11.2026, 20:41</p>
 </nav>
 
 <main id="main">
@@ -2305,7 +2312,7 @@ function buildMeander(st){var sg=st&&st.querySelector(".stage");if(!sg)return;va
 /* Seitlicher Schein in der Farbe der Station (wie der lila Schein auf dem Start) */
 stations.forEach(function(st,i){if(i===0)return;var h=st.querySelector(".hero");if(!h)return;["l","r"].forEach(function(k){h.appendChild(el("i",{class:"sg "+k,"aria-hidden":"true"}))})});
 /* Farbe der nächsten Station an ihr Vorschau-Blatt geben */
-stations.forEach(function(s2,i){var sh=s2.querySelector(".rw-sheet");if(!sh||!stations[i+1])return;var h=stations[i+1].querySelector(".hero");var acc=getComputedStyle(h).getPropertyValue("--accent").trim()||"#c44634";sh.style.setProperty("--pk",acc);sh.style.setProperty("--pk-a",alpha(acc,.28))});
+stations.forEach(function(s2,i){var sh=s2.querySelector(".rw-sheet");if(!sh||!stations[i+1])return;var h=stations[i+1].querySelector(".hero");var acc=getComputedStyle(h).getPropertyValue("--accent").trim()||"#c44634";sh.style.setProperty("--pk",acc);sh.style.setProperty("--pk-a",alpha(acc,.28));sh.parentNode.style.setProperty("--pk-a",alpha(acc,.22))});
 document.getElementById("pathcount").textContent=N+" Stationen";
 
 function stamp(){return{items:itemsDone(),cards:cardsKnown(),best:store.get("best",0)}}
@@ -2351,9 +2358,10 @@ function backTo(t,atEnd){if(t<0||t>=N||t===cur)return;if(peekBusy)return;var old
   var oldId=cl.getAttribute("data-sid"),rs=stations[t].querySelector(":scope > .content > .runway .rw-sheet"),a;
   if(rs&&rs.getClientRects().length&&rs.querySelector(".rw-in").getAttribute("data-sid")===oldId&&rs.getBoundingClientRect().top<H-20){
     var pk=rs.querySelector(".rw-in .hero > .kicker"),ck=cl.querySelector(".hero > .kicker"),dy=pk&&ck?pk.getBoundingClientRect().top-ck.getBoundingClientRect().top:rs.getBoundingClientRect().top;
+    ov.classList.add("sink");ov.style.setProperty("--pk",rs.style.getPropertyValue("--pk"));
     var gl=document.createElement("div");gl.className="pk-glow";gl.style.setProperty("--pk-a",rs.style.getPropertyValue("--pk-a"));ov.insertBefore(gl,ov.firstChild);
     var ez="cubic-bezier(.22,1,.36,1)",du=Math.round(420+260*Math.min(1,dy/H));
-    a=ov.animate([{transform:"translate3d(0,0,0)",borderTopLeftRadius:"0px",borderTopRightRadius:"0px",borderTopColor:"rgba(0,0,0,0)"},{transform:"translate3d(0,"+dy+"px,0)",borderTopLeftRadius:"28px",borderTopRightRadius:"28px",borderTopColor:getComputedStyle(rs).borderTopColor}],{duration:du,easing:ez,fill:"forwards"});
+    a=ov.animate([{transform:"translate3d(0,0,0)",borderTopLeftRadius:"0px",borderTopRightRadius:"0px",borderTopColor:"rgba(0,0,0,0)",boxShadow:"0 -30px 70px -10px rgba(0,0,0,.55)"},{transform:"translate3d(0,"+dy+"px,0)",borderTopLeftRadius:"28px",borderTopRightRadius:"28px",borderTopColor:getComputedStyle(rs).borderTopColor,boxShadow:"0 -30px 70px -10px rgba(0,0,0,0)"}],{duration:du,easing:ez,fill:"forwards"});
     gl.animate([{opacity:0},{opacity:1}],{duration:du,easing:"ease-in",fill:"forwards"});
   }else a=ov.animate([{transform:"translate3d(0,0,0)"},{transform:"translate3d(0,"+(H+60)+"px,0)"}],{duration:720,easing:"cubic-bezier(.3,.75,.35,1)",fill:"forwards"});
   var bdone=false;function bfin(){if(bdone)return;bdone=true;ov.remove();lockScroll(false);peekBusy=false;setTimeout(reqMore,200)}a.onfinish=bfin;setTimeout(bfin,1700)}
