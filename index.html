@@ -1547,6 +1547,14 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
 .sg.t::before{background:linear-gradient(color-mix(in srgb,var(--accent) calc(var(--sga) * .8),transparent) 0,color-mix(in srgb,var(--accent) calc(var(--sga) * .36),transparent) 3px,color-mix(in srgb,var(--accent) calc(var(--sga) * .22),transparent) 18%,color-mix(in srgb,var(--accent) calc(var(--sga) * .11),transparent) 40%,color-mix(in srgb,var(--accent) calc(var(--sga) * .04),transparent) 66%,transparent 90%)}
 @media (min-width:1700px){.sg.t{height:260px;-webkit-mask-image:none;mask-image:none}}
 @media (max-width:699px){.sg.t{height:150px}}
+
+/* Feste Leisten an den tatsächlich sichtbaren Bereich kleben (Safari auf iPad/iPhone verschiebt sonst je nach Adressleiste) */
+:root{--vvt:0px;--vvb:0px}
+.topbar{top:var(--vvt)}
+.bottombar{bottom:var(--vvb)}
+.morepill,.narr-cap{bottom:calc(var(--bar) + var(--sab) + 14px + var(--vvb))}
+.bfade{bottom:calc(var(--bar) + var(--sab) - 1px + var(--vvb))}
+@media (max-width:1099px){.path{bottom:var(--vvb)}}
 </style>
 </head>
 <body>
@@ -1582,7 +1590,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
         <li><span class="tag">Ergänzung</span><small>Standardwissen</small></li>
       </ul>
     </section>
-    <p class="buildtag">Stand: 16.11.2026, 22:15</p>
+    <p class="buildtag">Stand: 16.11.2026, 22:42</p>
   </div>
 </nav>
 
@@ -2655,7 +2663,7 @@ function swapTo(i,dir,pk){var old=stations[cur];stations.forEach(function(x){x.c
   updateNav(i);closeSheet();window.scrollTo(0,0);
   if(hooks[ids[i]])hooks[ids[i]]();
   stations.forEach(function(x){var rr=x.querySelector('.runway');if(rr)rr.classList.remove('armed')});resetSw();fixRest();lastSY=scrollY;lastT=performance.now();flung=false;buildMeander(stations[i]);fillPreview(i,true);fixInk(stations[i]);shownAt=performance.now();if(restY()<=4)arm();else disarm();
-  moreEl.classList.remove("on");setTimeout(reqMore,350);if(window.narrOnStation)window.narrOnStation(i)}
+  moreEl.classList.remove("on");setTimeout(reqMore,350);if(window.narrOnStation)window.narrOnStation(i);if(window.vvUpdate)window.vvUpdate()}
 function fromHash(){var h=(location.hash||"").replace("#",""),i=ids.indexOf(h);if(i<0)i=0;if(i===cur)return;if(cur>=0&&!RM&&!peekBusy){if(i<cur){backTo(i,false);return}if(i>0){peekTo(i,i===cur+1);return}}show(i)}
 function go(i){if(i<0||i>=N)return;if(peekBusy)return;
   if(i===cur+1&&i>0&&!RM&&cur>=0){peekTo(i,true);return}
@@ -2815,6 +2823,16 @@ fromHash();
     s.classList.add("warm");void s.offsetHeight;requestAnimationFrame(function(){s.classList.remove("warm");idle(step)})}
   function start(){var k=Math.max(0,cur);for(var d=1;d<N;d++){if(stations[k+d])q.push(stations[k+d])}for(var d2=1;d2<=k;d2++)q.push(stations[k-d2]);idle(step)}
   if(document.readyState==="complete")setTimeout(start,900);else window.addEventListener("load",function(){setTimeout(start,900)})})();
+/* Sichtbarer Bereich: Abstand zwischen Safaris Layout-Bereich und dem, was man wirklich sieht */
+(function(){var vv=window.visualViewport;if(!vv)return;var probe=document.createElement("div"),root=document.documentElement,pend=false,lt=-1,lb=-1;
+  probe.setAttribute("aria-hidden","true");probe.style.cssText="position:fixed;top:0;bottom:0;left:0;width:1px;visibility:hidden;pointer-events:none;z-index:-1";document.body.appendChild(probe);
+  function upd(){pend=false;var t=0,b=0;if(Math.abs((vv.scale||1)-1)<.01){var r=probe.getBoundingClientRect(),ae=document.activeElement,typing=ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName);
+      t=Math.round(vv.offsetTop-r.top);b=Math.round(r.bottom-(vv.offsetTop+vv.height));if(t<0||t>140)t=0;if(b<0||b>140||typing)b=0}
+    if(t!==lt){lt=t;root.style.setProperty("--vvt",t+"px")}if(b!==lb){lb=b;root.style.setProperty("--vvb",b+"px")}}
+  function req(){if(!pend){pend=true;requestAnimationFrame(upd)}}
+  vv.addEventListener("resize",req);vv.addEventListener("scroll",req);window.addEventListener("scroll",req,{passive:true});window.addEventListener("resize",req);
+  window.addEventListener("hashchange",function(){req();setTimeout(req,350);setTimeout(req,900)});document.addEventListener("focusout",function(){setTimeout(req,60)});
+  window.vvUpdate=function(){req();setTimeout(req,120);setTimeout(req,500)};req()})();
 /* Erster Auftritt: Vorhang auf (einmal pro Sitzung), dahinter baut sich die Seite in fester Reihenfolge auf */
 function openStage(){var d=document.documentElement;if(!d.classList.contains("hold")&&!d.classList.contains("vh"))return;
   var vh=d.classList.contains("vh"),w=vh?Math.max(0,480-performance.now()):0;
