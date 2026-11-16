@@ -262,7 +262,7 @@ main{--padx:max(16px,calc((100vw - 948px) / 2));--padtop:calc(var(--sat) + 76px)
 [data-look="dialog"] > .hero .deco::after{right:5%;top:calc(var(--padtop) + 96px);width:150px;height:56px;border-bottom-left-radius:4px}
 /* Epochen */
 [data-look="epochen"] > .hero{--accent:#9a7420;--glow:rgba(170,112,60,.16);--hl:#f3d27a}
-[data-look="epochen"] > .hero .deco{background:linear-gradient(90deg,rgba(170,112,60,.11) 0 33.3%,rgba(107,63,160,.13) 33.3% 66.6%,rgba(44,128,120,.24) 66.6% 100%)}
+[data-look="epochen"] > .hero .deco{background:linear-gradient(90deg,rgba(170,112,60,.12) 0%,rgba(170,112,60,.09) 22%,rgba(107,63,160,.12) 44%,rgba(107,63,160,.11) 58%,rgba(44,128,120,.16) 80%,rgba(44,128,120,.2) 100%)}
 [data-look="epochen"] > .hero .deco::after{content:"";position:absolute;right:0;top:0;width:45%;height:100%;background:repeating-conic-gradient(from 190deg at 100% 0,rgba(220,160,100,.30) 0 3deg,rgba(0,0,0,0) 3deg 11deg);
   -webkit-mask-image:radial-gradient(circle at 100% 0,#000,rgba(0,0,0,0) 70%);mask-image:radial-gradient(circle at 100% 0,#000,rgba(0,0,0,0) 70%)}
 [data-look="epochen"] > .hero .deco::before{content:"";position:absolute;left:0;width:33.3%;top:calc(var(--padtop) + 6px);height:20px;background:#aa703c;opacity:.5;
@@ -889,8 +889,8 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
   #s-handlung .content:not(:is(.rw-in,.peek-in,.back-ov) *),
   /* Gliederungspunkte | Kartenstapel */
   [data-sid="handlung"] .content:not([data-sid] [data-sid] *),#s-figuren .content:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="figuren"] .content:not([data-sid] [data-sid] *){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;align-items:start}
-  #s-handlung .content > [data-items]:not(:is(.rw-in,.peek-in,.back-ov) *),
-  [data-sid="handlung"] .content > [data-items]:not([data-sid] [data-sid] *),#s-figuren .content > [data-items]:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="figuren"] .content > [data-items]:not([data-sid] [data-sid] *){grid-column:1;grid-row:1 / span 2}
+  #s-handlung .content > .lcol:not(:is(.rw-in,.peek-in,.back-ov) *),
+  [data-sid="handlung"] .content > .lcol:not([data-sid] [data-sid] *),#s-figuren .content > .lcol:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="figuren"] .content > .lcol:not([data-sid] [data-sid] *){grid-column:1;grid-row:1 / span 2}
   #s-handlung .content > h2:not(:is(.rw-in,.peek-in,.back-ov) *),
   [data-sid="handlung"] .content > h2:not([data-sid] [data-sid] *),#s-figuren .content > h2:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="figuren"] .content > h2:not([data-sid] [data-sid] *){grid-column:2;grid-row:1;margin-top:14px;margin-bottom:0}
   #s-handlung .content > .deck:not(:is(.rw-in,.peek-in,.back-ov) *),
@@ -906,7 +906,7 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
   /* Sortieren: Karten | Kästen */
   [data-sid="sortieren"] .content:not([data-sid] [data-sid] *){display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:28px;align-items:start}
   #s-sortieren .pool:not(:is(.rw-in,.peek-in,.back-ov) *),
-  [data-sid="sortieren"] .pool:not([data-sid] [data-sid] *){grid-column:1;grid-row:1 / span 2;margin-top:0}
+  [data-sid="sortieren"] .pool:not([data-sid] [data-sid] *){grid-column:1;grid-row:1 / span 3;margin-top:0}
   #s-sortieren .buckets:not(:is(.rw-in,.peek-in,.back-ov) *),
   [data-sid="sortieren"] .buckets:not([data-sid] [data-sid] *){grid-column:2;grid-row:1;grid-template-columns:1fr;margin-top:0}
   #s-sortieren .sortfoot:not(:is(.rw-in,.peek-in,.back-ov) *),
@@ -971,8 +971,8 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
   #s-sortieren .bucket:not(:is(.rw-in,.peek-in,.back-ov) *),
   [data-sid="sortieren"] .bucket:not([data-sid] [data-sid] *){min-height:76px;padding:10px}
   .items-head h2{margin:0!important}
-  #s-handlung .content > [data-items] .items-head:not(:is(.rw-in,.peek-in,.back-ov) *),
-  [data-sid="handlung"] .content > [data-items] .items-head:not([data-sid] [data-sid] *),#s-figuren .content > [data-items] .items-head:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="figuren"] .content > [data-items] .items-head:not([data-sid] [data-sid] *){margin-top:14px}
+  #s-handlung .content > .lcol .items-head:not(:is(.rw-in,.peek-in,.back-ov) *),
+  [data-sid="handlung"] .content > .lcol .items-head:not([data-sid] [data-sid] *),#s-figuren .content > .lcol .items-head:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="figuren"] .content > .lcol .items-head:not([data-sid] [data-sid] *){margin-top:14px}
   #s-handwerk .content h2:not(:is(.rw-in,.peek-in,.back-ov) *),
   [data-sid="handwerk"] .content h2:not([data-sid] [data-sid] *){margin-top:22px}
   #s-handwerk .content > h2:first-child:not(:is(.rw-in,.peek-in,.back-ov) *),
@@ -1223,18 +1223,20 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
 .station.via-peek .content > *,.station.via-peek .content *:not(.caret){animation:none!important}
 #s-start .content > .schwelle:not(:is(.rw-in,.peek-in,.back-ov) *),
 [data-sid="start"] .content > .schwelle:not([data-sid] [data-sid] *),#s-start .content > .runway:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="start"] .content > .runway:not([data-sid] [data-sid] *){flex-basis:100%;width:100%}
-.sg{position:absolute;z-index:-1;top:calc(-1 * var(--padtop));height:calc(100% + var(--padtop) + 260px);width:clamp(90px,14vw,220px);pointer-events:none;--sga:42%}
-.sg::before{content:"";position:absolute;inset:0;background:radial-gradient(100% 62% at var(--sgx) 30%,
+.sg{position:absolute;z-index:-1;top:calc(-1 * var(--padtop));height:calc(100% + var(--padtop) + 320px);width:clamp(110px,15vw,250px);pointer-events:none;--sga:40%;
+  -webkit-mask-image:linear-gradient(#000 0,#000 22%,rgba(0,0,0,.72) 40%,rgba(0,0,0,.42) 58%,rgba(0,0,0,.17) 76%,rgba(0,0,0,.04) 90%,rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(#000 0,#000 22%,rgba(0,0,0,.72) 40%,rgba(0,0,0,.42) 58%,rgba(0,0,0,.17) 76%,rgba(0,0,0,.04) 90%,rgba(0,0,0,0) 100%)}
+.sg::before{content:"";position:absolute;inset:0;background:linear-gradient(var(--sgd),
   color-mix(in srgb,var(--accent) var(--sga),transparent) 0%,
-  color-mix(in srgb,var(--accent) calc(var(--sga) * .72),transparent) 22%,
-  color-mix(in srgb,var(--accent) calc(var(--sga) * .42),transparent) 45%,
-  color-mix(in srgb,var(--accent) calc(var(--sga) * .17),transparent) 70%,
-  color-mix(in srgb,var(--accent) calc(var(--sga) * .04),transparent) 88%,transparent 100%)}
-.sg.l{left:calc(-1 * var(--padx) - var(--exl,0px));--sgx:0%}
-.sg.r{right:calc(-1 * var(--padx) - var(--extra,0px));--sgx:100%}
-:root[data-theme="light"] .sg{--sga:24%}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .sg{--sga:24%}}
-@media (max-width:699px){.sg{width:60px}}
+  color-mix(in srgb,var(--accent) calc(var(--sga) * .7),transparent) 16%,
+  color-mix(in srgb,var(--accent) calc(var(--sga) * .42),transparent) 36%,
+  color-mix(in srgb,var(--accent) calc(var(--sga) * .2),transparent) 58%,
+  color-mix(in srgb,var(--accent) calc(var(--sga) * .06),transparent) 80%,transparent 100%)}
+.sg.l{left:calc(-1 * var(--padx) - var(--exl,0px));--sgd:90deg}
+.sg.r{right:calc(-1 * var(--padx) - var(--extra,0px));--sgd:270deg}
+:root[data-theme="light"] .sg{--sga:22%}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .sg{--sga:22%}}
+@media (max-width:699px){.sg{width:56px}}
 .runway{--rw-up:0px}
 .station .content > .runway{animation:none!important;transition:opacity .35s var(--ease)}
 .fl .station .content > .runway{opacity:0}
@@ -1273,6 +1275,58 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
 .narr-hl{position:relative;z-index:2;outline:2px solid var(--thread);outline-offset:8px;border-radius:12px;animation:narrHl 2.4s ease-in-out infinite;transition:outline-color .3s}
 @keyframes narrHl{0%,100%{box-shadow:0 0 0 8px color-mix(in srgb,var(--thread) 10%,transparent),0 0 40px 10px color-mix(in srgb,var(--thread) 16%,transparent)}50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--thread) 4%,transparent),0 0 26px 4px color-mix(in srgb,var(--thread) 8%,transparent)}}
 @media (prefers-reduced-motion:reduce){.narr-hl{animation:none}}
+
+
+/* ---------- Füllflächen ---------- */
+.feg{display:grid;gap:8px}
+.feg div{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:baseline;padding:8px 0;border-top:1px dashed var(--rule)}
+.feg b{font-family:var(--font-display);font-size:15px;color:var(--c);position:relative;padding-left:14px}
+.feg b::before{content:"";position:absolute;left:0;top:.45em;width:8px;height:8px;border-radius:50%;background:var(--c)}
+.feg span{font-size:14px;line-height:1.4}
+[data-look="epochen"] .fill{--accent:#9a7420}
+[data-look="zeitraum"] .fill{--accent:#2c8078}[data-look="dialog"] .fill{--accent:#9b6be0}[data-look="split"] .fill{--accent:#5aa36f}
+.fill{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:14px;background:linear-gradient(160deg,color-mix(in srgb,var(--accent,var(--thread)) 7%,var(--sheet)),var(--sheet) 60%);box-shadow:var(--shadow)}
+.fill-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.fill-h b{font-family:var(--font-display);font-size:16.5px}
+.fill-h span{font-family:var(--font-mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:inline-flex;align-items:center;gap:6px}
+.fill-h i{display:inline-block;width:14px;height:5px;border-radius:3px}
+.fz .k1,.zb .g{background:#2c8078}.fz .k2,.zb .s{background:#9fdcd2}
+.zr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:14px;align-items:center;padding:8px 0;border-top:1px dashed var(--rule)}
+.zl b{display:block;font-family:var(--font-display);font-size:15px}
+.zl small{display:block;font-size:13px;color:var(--muted);line-height:1.35}
+.zb{display:grid;gap:5px}
+.zb i{display:block;height:7px;border-radius:4px;width:var(--w);min-width:3px}
+.zb .s[style*="--w:0%"]{width:3px;opacity:.5}
+.zb .g.gap{background:linear-gradient(90deg,#2c8078 0 38%,transparent 38% 62%,#2c8078 62%)}
+.frg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:520px){.frg{grid-template-columns:1fr}}
+.frg div{padding:9px 11px;border-radius:10px;background:color-mix(in srgb,var(--paper) 55%,transparent);border:1px solid var(--rule)}
+.frg b{display:block;font-family:var(--font-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--accent,var(--pen));margin-bottom:2px}
+.frg span{display:block;font-size:13.5px;line-height:1.4}
+.fsr{display:grid;grid-template-columns:6px 1fr;gap:10px;margin:6px 0}
+.fsr i{border-radius:3px}
+.fsr p{margin:0;font-size:14.5px;line-height:1.45}
+.fst{display:grid;gap:6px;margin-top:10px}
+.fst span{font-size:13.5px;line-height:1.4;color:var(--muted)}
+.fst b{font-family:var(--font-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--ink);margin-right:6px}
+.epo-bot{display:grid;gap:0 32px}
+@media (min-width:900px){
+  .epo-bot{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .epo-bot > div:first-child h2:first-child,.epo-bot > div:last-child h2:first-child{margin-top:30px}
+  .figs{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .asp{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (min-width:700px) and (max-width:899px){.asp{grid-template-columns:repeat(3,minmax(0,1fr))}.figs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:699px){.figs{grid-template-columns:1fr 1fr}.asp{grid-template-columns:1fr 1fr}}
+.rules li.luck{counter-increment:none;display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,color-mix(in srgb,#c44634 20%,var(--sheet)),var(--sheet));border-color:color-mix(in srgb,#c44634 45%,var(--rule))}
+.rules li.luck::before{content:none}
+.luck svg{width:54px;height:36px;flex:none}
+.luck svg path{fill:none;stroke:#e0735f;stroke-width:2.4;stroke-linecap:round}
+.luck b{display:block;font-family:var(--font-display);font-size:17px}
+.luck small{display:block;font-size:13.5px;color:var(--muted);line-height:1.4}
+@media (min-width:900px){
+  #s-sortieren .content > .fill.fs:not(:is(.rw-in,.peek-in,.back-ov) *),[data-sid="sortieren"] .content > .fill.fs:not([data-sid] [data-sid] *){grid-column:2;grid-row:3;margin-top:14px}
+}
 
 /* ---------- Lesefassung ohne JavaScript ---------- */
 .js .nojs-banner,.nojs .js-only{display:none!important}
@@ -1339,7 +1393,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 17:37</p>
+  <p class="buildtag">Stand: 16.11.2026, 18:43</p>
 </nav>
 
 <main id="main">
@@ -1474,7 +1528,12 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <h1>Handlung, Zeit, <span class="hl">Raum</span></h1>
     <p class="lede">Die ersten drei Punkte des Hauptteils, danach der passende Kartenstapel. Karte antippen zum Umdrehen, nach rechts wischen heißt „sitzt“, nach links „nochmal“.</p></header>
   <div class="content">
-    <div data-items="1" data-range="0-2"><div class="items-head"><h2>Hauptteil</h2><span class="sub">ca. ⅔ des Textes</span></div><div class="items"><details class="s-item"><summary>Offene und verdeckte Handlung</summary><div class="body"><p>Was wird gezeigt, was nur berichtet? Verhältnis beschreiben und mit Beispielen belegen. Funktion der verdeckten Handlung: Raffung und Konzentration, Vorgeschichte liefern.</p><div class="baustein"><b>Satzbaustein</b>Die Szene besteht fast nur aus Gespräch; die eigentlichen Ereignisse, der Tod der Brüder und Kreons Erlass, werden als verdeckte Handlung berichtet (V. …).</div><p class="hand">Tafel: grün = offen, blau = verdeckt.</p></div></details><details class="s-item"><summary>Zeitstruktur</summary><div class="body"><p>Spielzeit (Dauer der Aufführung) und gespielte Zeit (Zeit der fiktiven Geschichte). Dialoge sind meist zeitdeckend; Berichte raffen; Rückblenden und Zeitsprünge benennen.</p><div class="baustein"><b>Satzbaustein</b>Das Gespräch verläuft zeitdeckend, durch Antigones Bericht wird jedoch die Vorgeschichte gerafft.</div><p class="hand">Morgendämmerung: Die Schwestern treffen sich heimlich.</p></div></details><details class="s-item"><summary>Raumkonzeption</summary><div class="body"><p>Ist der Raum realistisch gestaltet oder symbolisch? Funktionen: Ort, an dem sich Handlung realisiert, und Stimmungsträger.</p><div class="baustein"><b>Satzbaustein</b>Die Gegenüberstellung von Königspalast und Kapelle spiegelt den Konflikt zwischen staatlichem und göttlichem Gesetz.</div><p class="hand">Musterabsatz dazu in der Station „Antigone lesen“.</p></div></details></div></div>
+    <div class="lcol"><div data-items="1" data-range="0-2"><div class="items-head"><h2>Hauptteil</h2><span class="sub">ca. ⅔ des Textes</span></div><div class="items"><details class="s-item"><summary>Offene und verdeckte Handlung</summary><div class="body"><p>Was wird gezeigt, was nur berichtet? Verhältnis beschreiben und mit Beispielen belegen. Funktion der verdeckten Handlung: Raffung und Konzentration, Vorgeschichte liefern.</p><div class="baustein"><b>Satzbaustein</b>Die Szene besteht fast nur aus Gespräch; die eigentlichen Ereignisse, der Tod der Brüder und Kreons Erlass, werden als verdeckte Handlung berichtet (V. …).</div><p class="hand">Tafel: grün = offen, blau = verdeckt.</p></div></details><details class="s-item"><summary>Zeitstruktur</summary><div class="body"><p>Spielzeit (Dauer der Aufführung) und gespielte Zeit (Zeit der fiktiven Geschichte). Dialoge sind meist zeitdeckend; Berichte raffen; Rückblenden und Zeitsprünge benennen.</p><div class="baustein"><b>Satzbaustein</b>Das Gespräch verläuft zeitdeckend, durch Antigones Bericht wird jedoch die Vorgeschichte gerafft.</div><p class="hand">Morgendämmerung: Die Schwestern treffen sich heimlich.</p></div></details><details class="s-item"><summary>Raumkonzeption</summary><div class="body"><p>Ist der Raum realistisch gestaltet oder symbolisch? Funktionen: Ort, an dem sich Handlung realisiert, und Stimmungsträger.</p><div class="baustein"><b>Satzbaustein</b>Die Gegenüberstellung von Königspalast und Kapelle spiegelt den Konflikt zwischen staatlichem und göttlichem Gesetz.</div><p class="hand">Musterabsatz dazu in der Station „Antigone lesen“.</p></div></details></div></div>
+    <aside class="fill fz"><div class="fill-h"><b>Zeit auf einen Blick</b><span><i class="k1"></i>gespielte Zeit <i class="k2"></i>Spielzeit</span></div>
+      <div class="zr"><div class="zl"><b>zeitdeckend</b><small>Dialog im Prolog</small></div><div class="zb"><i class="g" style="--w:62%"></i><i class="s" style="--w:62%"></i></div></div>
+      <div class="zr"><div class="zl"><b>zeitraffend</b><small>Botenbericht über die Tode</small></div><div class="zb"><i class="g" style="--w:100%"></i><i class="s" style="--w:22%"></i></div></div>
+      <div class="zr"><div class="zl"><b>Zeitsprung</b><small>erste Bestattung zwischen Prolog und 1. Epeisodion</small></div><div class="zb"><i class="g gap" style="--w:100%"></i><i class="s" style="--w:0%"></i></div></div>
+    </aside></div>
     <h2>Kartenstapel</h2>
     <div class="deck" data-cats="Handlung,Raum,Zeit"><p class="sub">Karte antippen zum Aufdecken</p><div class="s-deck"><details class="s-card"><summary><small>Handlung · Unterlagen</small><b>Offene Handlung</b></summary><p>Die auf der Bühne gezeigte Handlung. Dramatische Handlung ist im Wesentlichen offene Handlung.</p><p class="hand">Antigone und Ismene streiten vor dem Palast.</p></details><details class="s-card"><summary><small>Handlung · Unterlagen</small><b>Verdeckte Handlung</b></summary><p>Figuren berichten aus ihrer Sicht über Ereignisse, die räumlich oder zeitlich versetzt passieren. Mittel der Konzentration und Raffung.</p><p class="hand">Tod der Brüder, Kreons Erlass, Schuld des Ödipus.</p></details><details class="s-card"><summary><small>Handlung · Ergänzung</small><b>Botenbericht</b></summary><p>Eine Figur kommt auf die Bühne und berichtet, was anderswo geschehen ist. Klassische Form der verdeckten Handlung, oft für Gewalt und Tod.</p><p class="hand">Der Bote meldet den Tod Haimons.</p></details><details class="s-card"><summary><small>Handlung · Ergänzung</small><b>Teichoskopie (Mauerschau)</b></summary><p>Eine Figur beschreibt, was sie gerade gleichzeitig hinter der Bühne sieht. Verdeckte Handlung, aber zeitgleich.</p></details><details class="s-card"><summary><small>Raum · Unterlagen</small><b>Realer und fiktiver Raum</b></summary><p>Zu unterscheiden: der reale Bühnenraum im Theater und der fiktive Raum, also der Schauplatz der Handlung.</p></details><details class="s-card"><summary><small>Raum · Unterlagen</small><b>Raumkonzeption</b></summary><p>Wenn es Hinweise zum Bühnenbild gibt: Ist es realistisch gestaltet oder deutet es den fiktiven Raum außerhalb der Bühne nur symbolisch an?</p><p class="hand">Palast und Kapelle als Symbole.</p></details><details class="s-card"><summary><small>Raum · Unterlagen</small><b>Raumfunktionen</b></summary><p>a) Raum, in dem sich die Handlung realisiert. b) Stimmungsträger für die darzustellenden Ereignisse.</p><p class="hand">Morgendämmerung, Fackeln: heimlich, düster.</p></details><details class="s-card"><summary><small>Zeit · Unterlagen</small><b>Spielzeit</b></summary><p>Dauer der Aufführung ohne Pausen.</p></details><details class="s-card"><summary><small>Zeit · Unterlagen</small><b>Gespielte (fiktive) Zeit</b></summary><p>Zeit, in der die fiktive Geschichte außerhalb der Bühne spielt.</p><p class="hand">Antigone: etwa ein Tag.</p></details><details class="s-card"><summary><small>Zeit · Unterlagen</small><b>Strukturierung der Zeit</b></summary><p>Zeitsprünge, Rückblenden, Raffungen, Simultaneität, Illusion der Zeitlosigkeit.</p></details><details class="s-card"><summary><small>Zeit · Ergänzung</small><b>Zeitdeckung, Raffung, Dehnung</b></summary><p>Zeitdeckend: Spielzeit = gespielte Zeit, typisch für Dialoge. Raffung: gespielte Zeit länger (Bericht). Dehnung: ein Moment wird ausgedehnt (Monolog in einer Entscheidung).</p></details></div></div>
   </div>
@@ -1520,6 +1579,11 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
       <div class="bucket" id="b-v"><h3><i class="sw" style="background:var(--verdeckt)"></i>verdeckte Handlung</h3></div>
     </div>
     <div class="sortfoot js-only"><span class="sub" id="sortscore"></span><button class="chip ghost" id="sortreset">Nochmal</button></div>
+    <aside class="fill fs"><div class="fill-h"><b>Faustregel</b><span>gilt für die antike Tragödie</span></div>
+      <div class="fsr"><i style="background:var(--offen)"></i><p><b>Gezeigt</b> wird, was die Figuren im Gespräch tun: bitten, streiten, entscheiden.</p></div>
+      <div class="fsr"><i style="background:var(--verdeckt)"></i><p><b>Berichtet</b> wird die Vorgeschichte, alles an anderen Orten und vor allem Gewalt und Tod.</p></div>
+      <div class="fst"><span><b>Botenbericht</b> Ein Bote erzählt, was anderswo passiert ist.</span><span><b>Teichoskopie</b> Mauerschau: Eine Figur beschreibt, was sie gerade außerhalb der Bühne sieht.</span></div>
+    </aside>
   </div>
 </section>
 
@@ -1530,7 +1594,14 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <h1>Figuren und <span class="hl">Gespräch</span></h1>
     <p class="lede">Absichten, Reaktionen, Redeanteile, Redestrategien, Beziehung. Danach der Stapel mit Figuren-, Sprach- und Stilmittel-Begriffen.</p></header>
   <div class="content">
-    <div data-items="1" data-range="3-7"><div class="items-head"><h2>Hauptteil</h2><span class="sub">ca. ⅔ des Textes</span></div><div class="items"><details class="s-item"><summary>Absichten der Gesprächspartner</summary><div class="body"><p>Was will jede Figur in dieser Szene erreichen? Offene und versteckte Ziele trennen.</p><div class="baustein"><b>Satzbaustein</b>Antigone will Ismene als Verbündete gewinnen, Ismene will die Schwester vom Plan abbringen.</div></div></details><details class="s-item"><summary>Reaktionen aufeinander</summary><div class="body"><p>Wie reagiert B auf A? Geht er darauf ein, weicht er aus, widerspricht er? Hier entsteht der Gesprächsverlauf.</p><div class="baustein"><b>Satzbaustein</b>Ismene reagiert auf Antigones Bitte zunächst mit Bedenken und Warnungen, dann mit klarer Ablehnung.</div></div></details><details class="s-item"><summary>Redeanteile und gesellschaftliche Stellung</summary><div class="body"><p>Wer redet wie viel, wer bestimmt das Thema? Passt das zur sozialen Stellung (entsprechend) oder widerspricht es ihr (konträr)? Verse oder Zeilen zählen und als Zahl nennen.</p><div class="baustein"><b>Satzbaustein</b>Obwohl Antigone als junge Frau ohne politische Macht vor dem Herrscher Kreon steht, hält sie lange, selbstbewusste Reden; ihre Redeanteile verhalten sich also konträr zu ihrer gesellschaftlichen Stellung.</div><p class="hand">Zahlen wirken, z. B. „Figur A spricht 41 von 60 Versen“ (Muster, selbst nachzählen).</p></div></details><details class="s-item"><summary>Redestrategien</summary><div class="body"><p>Sprechweise, rhetorische Mittel, Mimik und Gestik (aus Regieanweisungen). Immer: Mittel, Beleg, Wirkung.</p><div class="baustein"><b>Satzbaustein</b>Mit der rhetorischen Frage „…“ (V. …) stellt Antigone ihr Leid als unbestreitbar dar und setzt Ismene unter Druck.</div><p class="hand">Liebevolle Anrede als Strategie, um Nähe herzustellen.</p></div></details><details class="s-item"><summary>Beziehung, Charakter, kommunikativer Prozess</summary><div class="body"><p>Welche Charakterzüge werden sichtbar? Ändert sich die Beziehung im Lauf der Szene? Sind die Figuren typisiert (stehen für eine Gruppe) oder individualisiert und innerlich widersprüchlich? Den Gesprächsverlauf als Prozess beschreiben.</p><div class="baustein"><b>Satzbaustein</b>Aus der vertrauten Anrede am Anfang wird im Verlauf ein offener Bruch; die Beziehung kippt von Nähe in Distanz.</div></div></details></div></div>
+    <div class="lcol"><div data-items="1" data-range="3-7"><div class="items-head"><h2>Hauptteil</h2><span class="sub">ca. ⅔ des Textes</span></div><div class="items"><details class="s-item"><summary>Absichten der Gesprächspartner</summary><div class="body"><p>Was will jede Figur in dieser Szene erreichen? Offene und versteckte Ziele trennen.</p><div class="baustein"><b>Satzbaustein</b>Antigone will Ismene als Verbündete gewinnen, Ismene will die Schwester vom Plan abbringen.</div></div></details><details class="s-item"><summary>Reaktionen aufeinander</summary><div class="body"><p>Wie reagiert B auf A? Geht er darauf ein, weicht er aus, widerspricht er? Hier entsteht der Gesprächsverlauf.</p><div class="baustein"><b>Satzbaustein</b>Ismene reagiert auf Antigones Bitte zunächst mit Bedenken und Warnungen, dann mit klarer Ablehnung.</div></div></details><details class="s-item"><summary>Redeanteile und gesellschaftliche Stellung</summary><div class="body"><p>Wer redet wie viel, wer bestimmt das Thema? Passt das zur sozialen Stellung (entsprechend) oder widerspricht es ihr (konträr)? Verse oder Zeilen zählen und als Zahl nennen.</p><div class="baustein"><b>Satzbaustein</b>Obwohl Antigone als junge Frau ohne politische Macht vor dem Herrscher Kreon steht, hält sie lange, selbstbewusste Reden; ihre Redeanteile verhalten sich also konträr zu ihrer gesellschaftlichen Stellung.</div><p class="hand">Zahlen wirken, z. B. „Figur A spricht 41 von 60 Versen“ (Muster, selbst nachzählen).</p></div></details><details class="s-item"><summary>Redestrategien</summary><div class="body"><p>Sprechweise, rhetorische Mittel, Mimik und Gestik (aus Regieanweisungen). Immer: Mittel, Beleg, Wirkung.</p><div class="baustein"><b>Satzbaustein</b>Mit der rhetorischen Frage „…“ (V. …) stellt Antigone ihr Leid als unbestreitbar dar und setzt Ismene unter Druck.</div><p class="hand">Liebevolle Anrede als Strategie, um Nähe herzustellen.</p></div></details><details class="s-item"><summary>Beziehung, Charakter, kommunikativer Prozess</summary><div class="body"><p>Welche Charakterzüge werden sichtbar? Ändert sich die Beziehung im Lauf der Szene? Sind die Figuren typisiert (stehen für eine Gruppe) oder individualisiert und innerlich widersprüchlich? Den Gesprächsverlauf als Prozess beschreiben.</p><div class="baustein"><b>Satzbaustein</b>Aus der vertrauten Anrede am Anfang wird im Verlauf ein offener Bruch; die Beziehung kippt von Nähe in Distanz.</div></div></details></div></div>
+    <aside class="fill fr"><div class="fill-h"><b>Redestrategien im Stück</b><span>zum Wiedererkennen</span></div>
+      <div class="frg">
+        <div><b>appellieren</b><span>Antigone bittet Ismene, ihr beim Begraben zu helfen.</span></div>
+        <div><b>drohen</b><span>Kreon droht den Wächtern mit dem Tod, falls der Täter nicht gefunden wird.</span></div>
+        <div><b>argumentieren</b><span>Haimon: Die Stadt steht heimlich auf Antigones Seite.</span></div>
+        <div><b>unterstellen</b><span>Kreon wirft Teiresias vor, bestechlich zu sein.</span></div>
+      </div></aside></div>
     <h2>Kartenstapel</h2>
     <div class="deck" data-cats="Figuren,Sprache,Kommunikation,Stilmittel"><p class="sub">Karte antippen zum Aufdecken</p><div class="s-deck"><details class="s-card"><summary><small>Figuren · Unterlagen</small><b>Figurenkonstellation</b></summary><p>Zahl der Figuren, ihre Position (sozialer Status, Beruf, Stand, Handlungsträger), ihre Funktion und wie sich die Beziehungen entwickeln.</p><p class="hand">Antigone gegen Kreon, Ismene dazwischen.</p></details><details class="s-card"><summary><small>Figuren · Unterlagen</small><b>Figurenkonzeption</b></summary><p>Wie eine Figur angelegt ist: Individualisierungsgrad, charakterliche Merkmale, Entwicklung, äußeres Verhalten, innere Haltung.</p></details><details class="s-card"><summary><small>Figuren · Unterlagen</small><b>Individualisierungsgrad</b></summary><p>Sind die Figuren in sich widersprüchliche Charaktere oder typische Vertreter bestimmter Verhaltensweisen?</p><p class="hand">Odoardo: Typ des strengen Tugendvaters.</p></details><details class="s-card"><summary><small>Sprache · Unterlagen</small><b>Monolog</b></summary><p>Eine Figur spricht allein. Arten: Reflexionsmonolog, Entscheidungs- oder Konfliktmonolog, Affektmonolog, epischer Monolog (Bericht), Brückenmonolog (verbindet zwei Szenen).</p><p class="hand">Nathan III,6 vor der Ringparabel.</p></details><details class="s-card"><summary><small>Sprache · Unterlagen</small><b>Beiseitesprechen</b></summary><p>Eine Figur sagt etwas, das nur das Publikum hören soll. Zeigt die wahre Haltung und schafft Wissensvorsprung beim Zuschauer.</p></details><details class="s-card"><summary><small>Sprache · Unterlagen</small><b>Dialog</b></summary><p>Gestaltung untersuchen: Redeanteile, wer beginnt, wer lenkt, Länge der Repliken, Unterbrechungen, Themenwechsel.</p></details><details class="s-card"><summary><small>Sprache · Ergänzung</small><b>Stichomythie</b></summary><p>Rede und Gegenrede Vers für Vers in schnellem Wechsel. Zeigt Streit und Zuspitzung.</p><p class="hand">Antigone gegen Kreon.</p></details><details class="s-card"><summary><small>Kommunikation · Ergänzung</small><b>Symmetrisch / komplementär</b></summary><p>Nach Watzlawick: symmetrische Kommunikation zwischen Gleichrangigen (oft Machtkampf), komplementäre zwischen Ungleichen (einer führt, einer folgt).</p><p class="hand">Wichtig für Redeanteile und Stellung.</p></details><details class="s-card"><summary><small>Stilmittel · Ergänzung</small><b>Rhetorische Frage</b></summary><p>Frage, deren Antwort feststeht. Wirkung: Die Behauptung wirkt unbestreitbar, das Gegenüber wird unter Druck gesetzt.</p></details><details class="s-card"><summary><small>Stilmittel · Ergänzung</small><b>Ellipse</b></summary><p>Unvollständiger Satz. Wirkung: Erregung, Hast, Emotion.</p></details><details class="s-card"><summary><small>Stilmittel · Ergänzung</small><b>Aposiopese</b></summary><p>Satz bricht ab („Wenn du das tust, dann …“). Wirkung: Drohung, Überwältigung, Unsagbares.</p><p class="hand">Typisch für erregte Figuren, etwa Emilia in II,6.</p></details><details class="s-card"><summary><small>Stilmittel · Ergänzung</small><b>Apostrophe</b></summary><p>Feierliche Hinwendung zu einer abwesenden Person, Gottheit oder Sache, etwa ein Anruf an die Götter. Wirkung: Pathos, Verzweiflung, Beschwörung.</p><p class="hand">Achtung: Die normale Anrede des Gegenübers ist keine Apostrophe.</p></details><details class="s-card"><summary><small>Stilmittel · Ergänzung</small><b>Antithese</b></summary><p>Gegenüberstellung gegensätzlicher Begriffe. Wirkung: Der Konflikt wird zugespitzt. Typisch für den Barock.</p><p class="hand">Götter gegen Staat.</p></details></div></div>
   </div>
@@ -1570,12 +1641,31 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
           <li><b>Mitleidsdramaturgie</b>: Lessing deutet Aristoteles um. Mitleid ist das zentrale Gefühl, Furcht das auf uns selbst bezogene Mitleid. Deshalb Bürger statt Könige auf der Bühne.</li>
         </ul>
       </div>
+      <div class="panel">
+        <h3>Tragödie nach Aristoteles <span class="tag">Ergänzung</span></h3>
+        <ul>
+          <li><b>Katharsis</b>: Die Tragödie soll durch Jammer (eleos) und Schaudern (phobos) eine Reinigung dieser Gefühle bewirken.</li>
+          <li><b>Hamartia</b>: Der Held ist weder ganz gut noch schlecht und stürzt durch einen Fehler ins Unglück.</li>
+          <li><b>Peripetie</b> und <b>Anagnorisis</b>: Umschwung und Erkenntnis. In der Antigone gibt Kreon nach Teiresias nach und erkennt am Ende seine Schuld, zu spät.</li>
+          <li><b>Held von hohem Ansehen</b>: Je höher der Stand, desto tiefer der Sturz. Darauf berufen sich später Ständeklausel und Fallhöhe.</li>
+          <li><b>Einheit der Handlung</b>: Eine geschlossene Handlung. Die strengen Einheiten von Ort und Zeit sind eine spätere Auslegung.</li>
+        </ul>
+      </div>
     </div>
+    <div class="epo-bot"><div>
     <h2>Satzbaustein Epochenbezug</h2>
     <div class="baustein" style="margin-top:14px"><b>Baustein</b>Die Szene lässt sich der Epoche der … zuordnen. Typisch dafür ist …, was sich hier darin zeigt, dass … (V. …). Allerdings weicht … davon ab, denn …</div>
     <p class="note">Der letzte Satz bringt Punkte: Zeig nicht nur, was passt, sondern auch, wo der Text von der Epoche abweicht.</p>
+    <aside class="fill fe"><div class="fill-h"><b>Epochen-Signale im Text</b><span>woran du sie erkennst</span></div>
+      <div class="feg">
+        <div><b style="--c:#aa703c">Antike</b><span>Chor, Götter und Schicksal, Botenbericht, Verse, Königshaus</span></div>
+        <div><b style="--c:#9b6be0">Barock</b><span>Vergänglichkeit, Antithesen, Pathos, Ständeklausel</span></div>
+        <div><b style="--c:#2c8078">Aufklärung</b><span>Vernunft, Tugend, bürgerliche Familie, Prosa, Kritik am Adel</span></div>
+      </div></aside>
+    </div><div>
     <h2>Kartenstapel Dramentheorie</h2>
     <div class="deck" data-cats="Form,Kontext"><p class="sub">Karte antippen zum Aufdecken</p><div class="s-deck"><details class="s-card"><summary><small>Form · Unterlagen</small><b>Geschlossene Form</b></summary><p>Aristotelische Form: präsentiert einen Ausschnitt als Ganzes. Drei Einheiten (Handlung, Zeit, Ort), strenger Aufbau, hohe Sprache. Wirkung: Furcht und Mitleid sollen Reinigung (Katharsis) bewirken.</p><p class="hand">Antigone, Emilia Galotti, Nathan.</p></details><details class="s-card"><summary><small>Form · Unterlagen</small><b>Offene Form</b></summary><p>Präsentiert das Ganze in Ausschnitten. Viele Schauplätze, Zeitsprünge, lose verbundene Szenen, oft Alltagssprache. Vor allem seit Sturm und Drang und im 19./20. Jh.</p><p class="hand">Büchners Woyzeck, Brechts episches Theater.</p></details><details class="s-card"><summary><small>Form · Unterlagen</small><b>Katharsis</b></summary><p>Ziel der Tragödie bei Aristoteles: Durch eleos und phobos, übersetzt als Mitleid und Furcht oder als Jammer und Schaudern, wird der Zuschauer von diesen Gefühlen gereinigt.</p><p class="hand">Lessing: Mitleid wird zum Hauptziel.</p></details><details class="s-card"><summary><small>Form · Ergänzung</small><b>Drei Einheiten</b></summary><p>Einheit der Handlung, der Zeit (möglichst ein Tag) und des Ortes. Merkmal der geschlossenen Form. Aristoteles selbst fordert nur die Einheit der Handlung, Zeit und Ort kamen später durch die französische Klassik und Gottsched dazu.</p></details><details class="s-card"><summary><small>Form · Ergänzung</small><b>Ständeklausel</b></summary><p>In der Tragödie dürfen nur Hochgestellte (Adel, Könige) leiden, Bürger nur in der Komödie. Begründet mit der Fallhöhe: Je höher der Stand, desto tiefer der Sturz. Das bürgerliche Trauerspiel bricht die Regel.</p><p class="hand">Lessing: Bürger statt Könige.</p></details><details class="s-card"><summary><small>Form · Ergänzung</small><b>Fünf-Akt-Schema</b></summary><p>Exposition, steigende Handlung mit erregendem Moment, Höhepunkt und Peripetie, fallende Handlung mit retardierendem Moment, Katastrophe. Nach Freytag als Pyramide.</p><p class="hand">Hilft bei der Einordnung der Szene.</p></details><details class="s-card"><summary><small>Kontext · Unterlagen</small><b>Stoff und Stoffbezüge</b></summary><p>Stoff = historische Vorlage oder überlieferte Geschichte. Fragen: Wie wird der Stoff umgesetzt und gestaltet? An welchen Stellen im Text wird auf ihn verwiesen?</p><p class="hand">Emilia Galotti greift den Virginia-Stoff auf.</p></details><details class="s-card"><summary><small>Kontext · Unterlagen</small><b>Epochenbezug</b></summary><p>Einflüsse (politisch, gesellschaftlich, kulturell-weltanschaulich, wirtschaftlich) auf das Werk und seine Wirkungen auf die eigene Gegenwart, nachfolgende Epochen und das heutige Publikum.</p></details></div></div>
+    </div></div>
   </div>
 </section>
 
@@ -1630,6 +1720,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
       <details class="s-card"><summary><small>Vermittler</small><b>Haimon</b></summary><p>Kreons Sohn, Antigones Verlobter. Argumentiert zuerst vernünftig und spricht für die Stimme der Stadt. Tötet sich am Ende neben Antigone.</p></details>
       <details class="s-card"><summary><small>Stimme der Götter</small><b>Teiresias</b></summary><p>Blinder Seher. Warnt Kreon und sagt die Katastrophe voraus. Blindheit gegen Einsicht als Motiv.</p></details>
       <details class="s-card"><summary><small>Kommentator</small><b>Chor</b></summary><p>Alte Männer aus Theben. Kreon gegenüber loyal, aber schwankend. Deutet das Geschehen und mahnt zur Besonnenheit.</p></details>
+      <details class="s-card"><summary><small>Auslöser</small><b>Polyneikes, Eteokles</b></summary><p>Antigones tote Brüder. Eteokles verteidigte Theben und wird ehrenvoll bestattet, Polyneikes griff die Stadt an und soll unbestattet bleiben.</p></details>
       <details class="s-card"><summary><small>Nebenfiguren</small><b>Wächter, Eurydike</b></summary><p>Der Wächter hat Angst vor Kreon und bringt etwas Komik hinein. Eurydike, Kreons Frau, tritt erst am Ende auf, ihr Tod vollendet Kreons Strafe.</p></details>
     </div>
 
@@ -1711,6 +1802,8 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
       <div><b>Stellung im Drama</b><span>Exposition, Höhepunkt, Katastrophe?</span></div>
       <div><b>Werte</b><span>Wofür stehen die Figuren, was ist ihnen heilig?</span></div>
       <div><b>Gattung und Epoche</b><span>Tragödie oder bürgerliches Trauerspiel, Antike oder Aufklärung?</span></div>
+      <div><b>Spannung</b><span>Wird Spannung aufgebaut, gehalten oder gelöst?</span></div>
+      <div><b>Wirkung</b><span>Was soll das Publikum fühlen oder denken?</span></div>
     </div>
 
     <h2>Durchgespielt: Antigone und Emilia</h2>
@@ -1799,6 +1892,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
       <li>Redeanteile zählen und mit der gesellschaftlichen Stellung vergleichen.</li>
       <li>Epochenbezug: zeigen, was passt, und was davon abweicht.</li>
       <li>Vergleich verzahnt: pro Aspekt beide Szenen, Unterschiede mit Epoche oder Gattung erklären.</li>
+      <li class="luck" aria-label="Viel Erfolg"><svg viewBox="0 0 60 40" aria-hidden="true"><path d="M4 34h52M16 34a14 14 0 0 1 28 0M30 12V4M44 18l5-5M16 18l-5-5"/></svg><span><b id="luckt">Viel Erfolg!</b><small id="lucks">Erst die Szene zweimal lesen, dann markieren, dann schreiben.</small></span></li>
     </ol>
     <p class="sub js-only" id="stats2" style="margin-top:26px"></p>
     <div class="chips js-only" style="margin-top:12px"><button class="chip share">Link mit der Klasse teilen</button><span class="sub sharemsg" style="align-self:center"></span></div>
@@ -2220,7 +2314,8 @@ var hooks={
     document.getElementById("startline").textContent=statsLine()+" · alles zusammen ca. "+Math.floor(totalMin/60)+" h "+(totalMin%60)+" min (grob geschätzt)"},
   "einleitung-bauen":function(){setTimeout(function(){placeGen();if(gen.getAttribute("data-tab")==="out"||getComputedStyle(document.getElementById("gentabs")).display==="none")typeOut()},RM?0:450)},
   epochen:function(){setTimeout(placeEpo,30)},
-  "kurz-vorher":function(){var sp=document.getElementById("spick");
+  "kurz-vorher":function(){(function(){var t=document.getElementById("luckt"),u=document.getElementById("lucks");if(!t)return;var n=new Date(),d=new Date(2026,10,17),diff=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/864e5);
+    t.textContent=diff>1?"Noch "+diff+" Tage":diff===1?"Morgen ist es so weit":diff===0?"Heute: viel Erfolg!":"Geschafft!";if(diff<0)u.textContent="Die Klausur ist geschrieben. Die Seite bleibt zum Nachschlagen."})();var sp=document.getElementById("spick");
     sp.innerHTML=PARTS.map(function(p,pi){return'<div class="glb"><h3>'+p.name+'<span class="sub">'+p.sub+'</span></h3><ul style="margin-top:12px">'+p.items.map(function(it,ii){return'<li class="'+(chk["c"+pi+"_"+ii]?"ok":"")+'">'+esc(it.t)+'</li>'}).join("")+'</ul></div>'}).join("");
     var open=[];PARTS.forEach(function(p,pi){p.items.forEach(function(it,ii){if(!chk["c"+pi+"_"+ii])open.push([stationOfItem(pi,ii),it.t])})});
     document.getElementById("todo").innerHTML=open.length?'<h2>Noch nicht abgehakt</h2><div class="chips todo-chips" style="margin-top:12px">'+open.map(function(o){return'<a class="chip" href="#'+o[0]+'">'+esc(o[1])+'</a>'}).join("")+'</div>':'<h2>Alle 18 Punkte abgehakt</h2><p class="note">Dann jetzt noch eine Runde Quiz und gut ist.</p>';
