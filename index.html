@@ -96,8 +96,9 @@ button,a,label{touch-action:manipulation}
 
 /* ---------- Grundgerüst ---------- */
 .shell{min-height:100vh}
-main{--padx:16px;--padtop:calc(var(--sat) + 76px);padding:var(--padtop) calc(var(--padx) + var(--sar)) calc(var(--bar) + var(--sab) + 40px) calc(var(--padx) + var(--sal));max-width:980px;margin:0 auto;touch-action:pan-y pinch-zoom;overflow-x:hidden;overflow-x:clip}
+main{--padx:max(16px,calc((100vw - 948px) / 2));--padtop:calc(var(--sat) + 76px);padding:var(--padtop) calc(var(--padx) + var(--sar)) calc(var(--bar) + var(--sab) + 40px) calc(var(--padx) + var(--sal));max-width:none;margin:0;touch-action:pan-y pinch-zoom;overflow-x:hidden;overflow-x:clip}
 @supports (overflow:clip){main{overflow-x:clip}}
+@media (min-width:700px) and (max-width:1099px){main{--padx:max(36px,calc((100vw - 948px) / 2))}}
 .js .station{display:none}
 .js .station.on{display:block}
 
@@ -389,7 +390,26 @@ h3{font-size:18px;font-weight:700}
 .station.enter .val{animation:valDrop .9s var(--ease) both}
 .spot{position:absolute;z-index:-1;left:0;top:0;width:1000px;height:1000px;margin:-500px 0 0 -500px;border-radius:50%;pointer-events:none;will-change:transform;background:radial-gradient(circle,var(--glow) 0,rgba(0,0,0,0) 62%)}
 @media (max-width:699px){.spot{width:700px;height:700px;margin:-350px 0 0 -350px}}
-.js .hero::before{display:none}
+.hero::before{display:none!important}
+.spot,.motes{display:none}
+
+/* Titelbildschirm */
+.js #s-start.on{display:flex;flex-direction:column;min-height:calc(100vh - var(--padtop) - var(--bar) - var(--sab) - 40px);min-height:calc(100svh - var(--padtop) - var(--bar) - var(--sab) - 40px)}
+#s-start .hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 0 120px}
+#s-start .hero::after{display:none}
+#s-start .hero h1{font-size:clamp(46px,9vw,108px);line-height:.96;letter-spacing:-.035em}
+#s-start .content{margin-top:0}
+#s-start .resume .nextcard{max-width:560px}
+.fadenline{position:absolute;z-index:0;left:calc(-1 * var(--padx));right:calc(-1 * var(--padx) - var(--extra));bottom:6px;width:calc(100% + 2 * var(--padx) + var(--extra));height:140px;overflow:visible;pointer-events:none}
+.fadenline path{fill:none;stroke:var(--thread);stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0}
+.fadenline circle{fill:var(--thread);opacity:0}
+.station.enter .fadenline path{animation:drawThread 2.2s cubic-bezier(.65,0,.35,1) .35s both}
+.station.enter .fadenline circle{animation:knot .5s var(--spring) 1.9s both}
+@keyframes drawThread{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes knot{from{opacity:0;transform:scale(0)}to{opacity:1;transform:none}}
+.fadenline circle{transform-box:fill-box;transform-origin:center}
+[data-look="buehne"] .hero .deco{background:linear-gradient(rgba(107,63,160,.12),rgba(0,0,0,0) 75%)}
+@media (max-width:699px){.fadenline{height:64px;bottom:30px}#s-start .hero{padding-bottom:110px}}
 
 /* Intro beim Öffnen: wechselt zwischen mehreren Varianten */
 .intro{position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;pointer-events:none;overflow:hidden}
@@ -777,7 +797,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 12:02</p>
+  <p class="buildtag">Stand: 16.11.2026, 12:14</p>
 </nav>
 
 <main id="main">
@@ -785,7 +805,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
 
 <!-- 1 START -->
 <section class="station" id="s-start" data-look="buehne" data-title="Start" data-min="1">
-  <header class="hero" data-n="1"><div class="deco" aria-hidden="true"></div><i class="cur l" aria-hidden="true"></i><i class="cur r" aria-hidden="true"></i><i class="val" aria-hidden="true"></i>
+  <header class="hero" data-n="1"><div class="deco" aria-hidden="true"></div><svg class="fadenline" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M-10 96 C 140 40, 260 128, 420 92 S 700 26, 860 70 S 1100 118, 1210 54"/></svg><i class="cur l" aria-hidden="true"></i><i class="cur r" aria-hidden="true"></i><i class="val" aria-hidden="true"></i>
     <div class="kicker">Lernpfad · Klausur Di, 17.11.2026</div>
     <h1><span class="hl">Dramenszene</span> analysieren</h1></header>
   <div class="content">
@@ -1209,20 +1229,6 @@ function cardsKnown(){return B.filter(function(b){return known[b[0]]}).length}
 
 /* ================= BÜHNEN ================= */
 var small=window.innerWidth<700;
-document.querySelectorAll(".hero").forEach(function(h){
-  var look=h.parentNode.getAttribute("data-look");h._spot=el("i",{class:"spot","aria-hidden":"true"});h.insertBefore(h._spot,h.firstChild);
-  if(look==="buehne"||look==="probe"){var m=el("div",{class:"motes","aria-hidden":"true"});h.querySelector(".deco").appendChild(m);
-    for(var k=0;k<(small?6:12);k++){var d=el("i");d.style.left=(10+Math.random()*80)+"%";d.style.bottom=(5+Math.random()*60)+"%";d.style.animationDelay=(Math.random()*6)+"s";d.style.animationDuration=(5+Math.random()*4)+"s";m.appendChild(d)}}
-  h.addEventListener("pointermove",function(e){if(e.pointerType!=="mouse")return;var r=h.getBoundingClientRect();h._tx=e.clientX-r.left;h._ty=e.clientY-r.top;h._last=performance.now()});
-});
-document.querySelectorAll(".hero").forEach(function(h){h._spot.style.transform="translate3d("+(h.offsetWidth*.68||600)+"px,"+(h.offsetHeight*.34||120)+"px,0)"});var spotInit=1;
-if(!RM){(function drift(t){var h=document.querySelector(".station.on .hero");
-  if(h&&h.offsetWidth){var w=h.offsetWidth,hh=h.offsetHeight,tx,ty;
-    if(h._last&&t-h._last<2000){tx=h._tx;ty=h._ty}else{tx=w*(.64+.16*Math.sin(t/5200)+.04*Math.sin(t/1900));ty=hh*(.34+.12*Math.sin(t/3700))}
-    if(h._cx==null){h._cx=tx;h._cy=ty}
-    h._cx+=(tx-h._cx)*.04;h._cy+=(ty-h._cy)*.04;
-    h._spot.style.transform="translate3d("+h._cx.toFixed(1)+"px,"+h._cy.toFixed(1)+"px,0)"}
-  requestAnimationFrame(drift)})(0)}
 
 /* ================= GLIEDERUNGSPUNKTE ================= */
 var SVG='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M6.5 12.5l3.8 3.8L18 7"/></svg>';
@@ -1441,9 +1447,10 @@ var totalMin=0;pathList.innerHTML="";
 stations.forEach(function(s,i){var t=s.dataset.title,m=+s.dataset.min||0,type=s.dataset.type;totalMin+=m;
   var li=el("li");li.innerHTML='<a href="#'+ids[i]+'"><span class="d" aria-hidden="true"></span><span>'+esc(t)+(type?'<span class="u">'+type+'</span>':'')+'</span><span class="m">'+m+'′</span></a>';pathList.appendChild(li);
   var c=s.querySelector(".content"),nc;
-  if(i<N-1){nc=el("a",{class:"nextcard",href:"#"+ids[i+1]},'<span><small>Weiter zu Station '+(i+2)+'</small><b>'+esc(stations[i+1].dataset.title)+'</b></span><span class="arr" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 18 18"><path d="M7 3l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>')}
+  if(i===0){nc=null}
+  else if(i<N-1){nc=el("a",{class:"nextcard",href:"#"+ids[i+1]},'<span><small>Weiter zu Station '+(i+2)+'</small><b>'+esc(stations[i+1].dataset.title)+'</b></span><span class="arr" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 18 18"><path d="M7 3l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>')}
   else{nc=el("a",{class:"nextcard",href:"#start"},'<span><small>Ende des roten Fadens</small><b>Zurück zum Start</b></span><span class="arr" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 18 18"><path d="M11 3L5 9l6 6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>')}
-  c.appendChild(nc)});
+  if(nc)c.appendChild(nc)});
 document.getElementById("pathcount").textContent=N+" Stationen";
 
 function stamp(){return{items:itemsDone(),cards:cardsKnown(),best:store.get("best",0)}}
