@@ -1398,7 +1398,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 20:09</p>
+  <p class="buildtag">Stand: 16.11.2026, 20:21</p>
 </nav>
 
 <main id="main">
@@ -2347,7 +2347,15 @@ function backTo(t,atEnd){if(t<0||t>=N||t===cur)return;if(peekBusy)return;var old
   old.style.transform="";
   swapTo(t,-1,true);if(location.hash!=="#"+ids[t]){try{history.pushState(null,"","#"+ids[t])}catch(e){}}
   if(atEnd){fixRest();var ry=restY();if(isFinite(ry)&&ry>0){window.scrollTo(0,ry);lastSY=scrollY;arm()}}
-  var a=ov.animate([{transform:"translate3d(0,0,0)"},{transform:"translate3d(0,"+(H+60)+"px,0)"}],{duration:720,easing:"cubic-bezier(.3,.75,.35,1)",fill:"forwards"});
+  /* Zeigt die neue Seite unten genau diese Station als Vorschau, sinkt das Blatt passgenau dort hinein statt doppelt vorbeizugleiten */
+  var oldId=cl.getAttribute("data-sid"),rs=stations[t].querySelector(":scope > .content > .runway .rw-sheet"),a;
+  if(rs&&rs.getClientRects().length&&rs.querySelector(".rw-in").getAttribute("data-sid")===oldId&&rs.getBoundingClientRect().top<H-20){
+    var pk=rs.querySelector(".rw-in .hero > .kicker"),ck=cl.querySelector(".hero > .kicker"),dy=pk&&ck?pk.getBoundingClientRect().top-ck.getBoundingClientRect().top:rs.getBoundingClientRect().top;
+    var gl=document.createElement("div");gl.className="pk-glow";gl.style.setProperty("--pk-a",rs.style.getPropertyValue("--pk-a"));ov.insertBefore(gl,ov.firstChild);
+    var ez="cubic-bezier(.22,1,.36,1)",du=Math.round(420+260*Math.min(1,dy/H));
+    a=ov.animate([{transform:"translate3d(0,0,0)",borderTopLeftRadius:"0px",borderTopRightRadius:"0px",borderTopColor:"rgba(0,0,0,0)"},{transform:"translate3d(0,"+dy+"px,0)",borderTopLeftRadius:"28px",borderTopRightRadius:"28px",borderTopColor:getComputedStyle(rs).borderTopColor}],{duration:du,easing:ez,fill:"forwards"});
+    gl.animate([{opacity:0},{opacity:1}],{duration:du,easing:"ease-in",fill:"forwards"});
+  }else a=ov.animate([{transform:"translate3d(0,0,0)"},{transform:"translate3d(0,"+(H+60)+"px,0)"}],{duration:720,easing:"cubic-bezier(.3,.75,.35,1)",fill:"forwards"});
   var bdone=false;function bfin(){if(bdone)return;bdone=true;ov.remove();lockScroll(false);peekBusy=false;setTimeout(reqMore,200)}a.onfinish=bfin;setTimeout(bfin,1700)}
 /* Oben weiterziehen = eine Station zurück (Finger), oder ein Mausrad-Raster nach oben nach kurzer Pause */
 var bh=document.createElement("div");bh.className="backhint";bh.setAttribute("aria-hidden","true");
@@ -2445,7 +2453,7 @@ function swapTo(i,dir,pk){var old=stations[cur];stations.forEach(function(x){x.c
   cur=i;visited[ids[i]]=1;store.set("visited",visited);if(i>0)store.set("last",ids[i]);
   updateNav(i);closeSheet();window.scrollTo(0,0);
   if(hooks[ids[i]])hooks[ids[i]]();
-  stations.forEach(function(x){var rr=x.querySelector('.runway');if(rr)rr.classList.remove('armed')});resetSw();fixRest();lastSY=scrollY;lastT=performance.now();flung=false;buildMeander(stations[i]);fillPreview(i,true);fixInk(stations[i]);if(restY()<=4)arm();else disarm();
+  stations.forEach(function(x){var rr=x.querySelector('.runway');if(rr)rr.classList.remove('armed')});resetSw();fixRest();lastSY=scrollY;lastT=performance.now();flung=false;buildMeander(stations[i]);fillPreview(i,true);fixInk(stations[i]);shownAt=performance.now();if(restY()<=4)arm();else disarm();
   moreEl.classList.remove("on");setTimeout(reqMore,350);if(window.narrOnStation)window.narrOnStation(i)}
 function fromHash(){var h=(location.hash||"").replace("#",""),i=ids.indexOf(h);if(i<0)i=0;if(i===cur)return;if(cur>=0&&!RM&&!peekBusy){if(i<cur){backTo(i,false);return}if(i>0){peekTo(i,i===cur+1);return}}show(i)}
 function go(i){if(i<0||i>=N)return;if(peekBusy)return;
@@ -2556,7 +2564,7 @@ function onScrollPull(){if(peekBusy||cur<0||!curRun())return;var r=restY(),over=
 function onIdle(){if(peekBusy||cur<0||!curRun()||touching)return;var r=restY(),over=scrollY-r;
   if(!armed()){if(Math.abs(over)<=4){arm();flung=false}return}
   if(over<=4){flung=false;return}
-  if(pullReady&&!flung&&!backing&&performance.now()-lastUser<1500){crossSw()}else{flung=false;backToRest()}}
+  if(pullReady&&!flung&&!backing&&performance.now()-lastUser<1500&&performance.now()-shownAt>900){crossSw()}else{flung=false;backToRest()}}
 /* Nur echtes Scrollen darf die Schwelle überqueren, nicht etwa eine Seite, die kürzer wird */
 var lastUser=0;function markUser(){lastUser=performance.now()}
 ["wheel","touchstart","touchmove","touchend","keydown"].forEach(function(t){window.addEventListener(t,markUser,{passive:true})});
@@ -2564,7 +2572,7 @@ window.addEventListener("mousedown",function(e){if(e.target===document.documentE
 var spTick=false;window.addEventListener("scroll",function(){if(!peekBusy){if(peek.classList.contains("on")){peek.classList.remove("on");pSheet.getAnimations().forEach(function(x){x.cancel()});pSheet.style.transform="";pFor=-1}var bo=document.querySelector(".back-ov");if(bo)bo.remove()}if(!spTick){spTick=true;requestAnimationFrame(function(){spTick=false;onScrollPull()})}clearTimeout(idleT);idleT=setTimeout(onIdle,240)},{passive:true});
 if("onscrollend" in window)window.addEventListener("scrollend",function(){clearTimeout(idleT);idleT=setTimeout(onIdle,200)});
 window.addEventListener("wheel",function(){clearTimeout(idleT);idleT=setTimeout(onIdle,300)},{passive:true});
-window.addEventListener("wheel",function(e){if(peekBusy||cur<0||e.deltaY<=0||e.ctrlKey)return;if(!(e.deltaMode===1||Math.abs(e.deltaY)>=50))return;
+var wdPrev=0,shownAt=0;window.addEventListener("wheel",function(e){var nw=performance.now(),gp=nw-wdPrev;if(e.deltaY>0)wdPrev=nw;if(peekBusy||cur<0||e.deltaY<=0||e.ctrlKey)return;if(!(e.deltaMode===1||Math.abs(e.deltaY)>=50))return;if(gp<260||nw-shownAt<650)return;
   if(!curRun()||!armed()||scrollY-restY()<-6)return;e.preventDefault();clearTimeout(idleT);lastUser=performance.now();pullReady=true;flung=false;crossSw()},{passive:false});
 document.addEventListener("touchstart",function(e){touching=e.touches.length;clearTimeout(idleT)},{passive:true});
 function tEnd(e){touching=e.touches?e.touches.length:0;if(!touching){clearTimeout(idleT);idleT=setTimeout(onIdle,200)}}
