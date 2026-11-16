@@ -134,9 +134,9 @@ main{--padx:max(16px,calc((100vw - 948px) / 2));--padtop:calc(var(--sat) + 76px)
 .path ol{position:relative;list-style:none;margin:0;padding:0;--p:0}
 .path ol::before,.path ol::after{content:"";position:absolute;left:15px;top:22px;width:2px;border-radius:2px}
 .path ol::before{bottom:22px;background:var(--rule)}
-.path ol::after{height:calc((100% - 44px) * var(--p));background:var(--thread);transition:height .7s var(--ease)}
+.path ol::after{height:calc((100% - 44px) * var(--p));background:var(--thread);transition:height .6s var(--ease)}
 .path li a{position:relative;display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:10px;min-height:44px;padding:4px 8px 4px 0;border-radius:10px;color:var(--muted);text-decoration:none;font-family:var(--font-display);font-weight:500;font-size:15.5px;line-height:1.2;transition:color .2s,background .2s}
-.path li a .d{position:relative;z-index:1;justify-self:center;width:13px;height:13px;border-radius:50%;border:2px solid var(--rule);background:var(--paper);transition:background .3s,border-color .3s,transform .3s var(--spring)}
+.path li a .d{position:relative;z-index:1;justify-self:center;width:13px;height:13px;border-radius:50%;border:2px solid var(--rule);background:var(--paper);transition:background .35s var(--ease),border-color .35s var(--ease),transform .35s var(--spring)}
 .path li a .m{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
 .path li a .u{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pen);margin-top:2px}
 .path li.done a .d{background:var(--thread);border-color:var(--thread)}
@@ -424,8 +424,8 @@ h3{font-size:18px;font-weight:700}
 [data-sid="start"] .content:not([data-sid] [data-sid] *){margin-top:0;display:flex;flex-wrap:wrap;align-items:center;column-gap:16px}
 #s-start .resume:not(:is(.rw-in,.peek-in,.back-ov) *),
 [data-sid="start"] .resume:not([data-sid] [data-sid] *){flex-basis:100%}
-#s-start #startline:not(:is(.rw-in,.peek-in,.back-ov) *),
-[data-sid="start"] #startline:not([data-sid] [data-sid] *){flex:1 1 320px;margin:14px 0 0!important}
+#s-start :is(#startline,[data-cid="startline"]):not(:is(.rw-in,.peek-in,.back-ov) *),
+[data-sid="start"] :is(#startline,[data-cid="startline"]):not([data-sid] [data-sid] *){flex:1 1 320px;margin:14px 0 0!important}
 #s-start .content > .chips:not(:is(.rw-in,.peek-in,.back-ov) *),
 [data-sid="start"] .content > .chips:not([data-sid] [data-sid] *){margin-top:14px!important}
 #s-start .resume .nextcard:not(:is(.rw-in,.peek-in,.back-ov) *),
@@ -810,6 +810,8 @@ table.cmp td.hide::after{transform:scaleX(1);transform-origin:left;transition-de
   .gen .out{animation:none}
 }
 .fields input,.fields textarea{width:100%;min-width:0;box-sizing:border-box}
+.fields input{height:54px}
+.fields textarea{height:80px}
 .fields{display:grid;gap:13px}
 .fields label{display:grid;gap:5px;font-family:var(--font-mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .fields input,.fields textarea{background:var(--sheet);border:1px solid var(--rule);border-radius:10px;padding:10px 12px;font-family:var(--font-body);font-size:16px;text-transform:none;letter-spacing:0;color:var(--ink);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
@@ -819,7 +821,7 @@ table.cmp td.hide::after{transform:scaleX(1);transform-origin:left;transition-de
 @media (min-width:560px){.row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 .out{position:-webkit-sticky;position:sticky;top:20px;align-self:start;border:1px solid var(--rule);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow);
   background:repeating-linear-gradient(rgba(0,0,0,0) 0 27px,var(--line) 27px 28px) 0 58px/100% auto,var(--sheet)}
-.out #outtext p{margin:0 0 14px;line-height:28px}
+.out :is(#outtext,[data-cid="outtext"]) p{margin:0 0 14px;line-height:28px}
 .caret{display:inline-block;width:2px;height:1.1em;background:var(--pen);vertical-align:-3px;margin-left:1px;animation:blink .8s steps(1) infinite}
 .checks{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:5px;font-size:13.5px;font-family:var(--font-mono)}
 .checks li{display:flex;gap:8px;align-items:center;transition:color .3s}
@@ -1308,7 +1310,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 16:40</p>
+  <p class="buildtag">Stand: 16.11.2026, 16:56</p>
 </nav>
 
 <main id="main">
@@ -2206,7 +2208,7 @@ var hooks={
 /* Zurück: die aktuelle Seite rutscht als Blatt nach unten weg und gibt die vorherige frei */
 function backTo(t,atEnd){if(t<0||t>=N||t===cur)return;if(peekBusy)return;var old=stations[cur];
   if(!old||RM||!old.animate){show(t);if(location.hash!=="#"+ids[t]){try{history.pushState(null,"","#"+ids[t])}catch(e){}}return}
-  peekBusy=true;lockScroll(true);moreEl.classList.remove("on");var H=innerHeight,r=old.getBoundingClientRect();
+  peekBusy=true;lockScroll(true);moreEl.classList.remove("on");updateNav(t);var H=innerHeight,r=old.getBoundingClientRect();
   var ov=document.createElement("div");ov.className="back-ov";ov.setAttribute("aria-hidden","true");mainEl.appendChild(ov);var ob=ov.getBoundingClientRect();
   var cl=old.cloneNode(true);cl.removeAttribute("id");cl.querySelectorAll("[id]").forEach(function(n){n.removeAttribute("id")});
   cl.classList.remove("enter","fwd","back","first","via-peek");cl.setAttribute("data-sid",ids[cur]);cl.setAttribute("data-look",old.getAttribute("data-look"));cl.classList.add("on");cl.style.transform="";cl.style.opacity="";cl.style.transition="";
@@ -2259,7 +2261,7 @@ moreEl.addEventListener("click",function(e){e.stopPropagation();if(!moreTarget)r
   window.scrollTo({top:scrollY+moreTarget.getBoundingClientRect().top-off,behavior:RM?"auto":"smooth"})});
 function updateNav(i){
   setProg(i,0);
-  pathList.querySelectorAll("li").forEach(function(li,k){var a=li.querySelector("a");li.classList.toggle("done",!!visited[ids[k]]&&k!==i);if(k===i)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  pathList.querySelectorAll("li").forEach(function(li,k){var a=li.querySelector("a");li.classList.toggle("done",k<i);if(k===i)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   var t=stations[i].dataset.title;
   document.getElementById("tbn").textContent="Station "+(i+1)+" von "+N;document.getElementById("tbt").textContent=t;
   document.getElementById("wsmall").textContent="Station "+(i+1)+" von "+N;document.getElementById("wtitle").textContent=t;setRing(i);
@@ -2299,9 +2301,12 @@ var peek=el("div",{class:"peek js-only","aria-hidden":"true"});peek.innerHTML='<
 var pGlow=document.createElement("div");pGlow.className="pk-glow";peek.querySelector(".peek-sheet").insertBefore(pGlow,peek.querySelector(".peek-sheet").firstChild);
 var pSheet=peek.querySelector(".peek-sheet"),pDim=peek.querySelector(".peek-dim"),pIn=peek.querySelector(".peek-in"),pFor=-1,peekBusy=false,peekPx=0;
 var mainEl=document.getElementById("main");
-function cloneStation(t,into,deep){var st=stations[t];if(deep)fillPreview(t,false);into.innerHTML="";var h=st.querySelector(".hero"),c=st.querySelector(".content");
-  [h,c].forEach(function(x){if(!x)return;var k=x.cloneNode(true);k.removeAttribute("id");k.querySelectorAll("[id]:not(.keepid)").forEach(function(n){n.removeAttribute("id")});
-    if(!deep)k.querySelectorAll(".runway,.schwelle").forEach(function(n){n.remove()});else k.querySelectorAll(".runway").forEach(function(n){n.classList.remove("armed");n.style.marginTop="";n.style.removeProperty("--rw-up")});into.appendChild(k)});
+/* Inhalte, die sonst erst beim ersten Besuch entstehen, vor dem Kopieren fertig machen, damit Kopie und echte Seite gleich hoch sind */
+function prepStation(t){var id=ids[t];try{if(id==="einleitung-bauen"){var pa=compose();checks();render(pa)}else if((id==="kurz-vorher"||id==="start")&&hooks[id])hooks[id]()}catch(e){}
+  stations[t].querySelectorAll(".schwelle .sw-hint").forEach(function(h){if(!h.closest(".rw-in"))h.textContent=hintTxt()})}
+function cloneStation(t,into,deep){var st=stations[t];prepStation(t);if(deep)fillPreview(t,false);into.innerHTML="";var h=st.querySelector(".hero"),c=st.querySelector(".content");
+  [h,c].forEach(function(x){if(!x)return;var k=x.cloneNode(true);k.removeAttribute("id");k.querySelectorAll("[id]:not(.keepid)").forEach(function(n){n.setAttribute("data-cid",n.id);n.removeAttribute("id")});
+    if(!deep)k.querySelectorAll(".runway,.schwelle").forEach(function(n){n.remove()});else k.querySelectorAll(".schwelle").forEach(function(n){n.classList.remove("ready","armed");n.style.removeProperty("--pull");var h=n.querySelector(".sw-hint");if(h)h.textContent=hintTxt()});if(deep)k.querySelectorAll(".runway").forEach(function(n){n.classList.remove("armed");n.style.marginTop="";n.style.removeProperty("--rw-up")});into.appendChild(k)});
   into.setAttribute("data-look",st.getAttribute("data-look"));into.setAttribute("data-sid",ids[t]);syncSvg(h,into);fixInk(into)}
 function fillPreview(i,deep){var st=stations[i];if(!st||!stations[i+1])return;var ri=st.querySelector(".rw-in");if(ri)cloneStation(i+1,ri,deep)}
 function preparePeek(t){if(pFor===t){syncSvg(stations[t].querySelector(".hero"),pIn);return}var src=stations[t].querySelector(".hero");if(!src)return;
@@ -2326,7 +2331,7 @@ function lockScroll(on){var f=lockScroll.f||(lockScroll.f=function(e){e.preventD
 function tyOf(el){var m=getComputedStyle(el).transform;if(!m||m==="none")return 0;var v=m.match(/matrix(3d)?\(([^)]+)\)/);if(!v)return 0;var q=v[2].split(",").map(parseFloat);return v[1]?q[13]:q[5]}
 /* Nächste Station hochfahren: das Blatt in der Seite (nach dem Ziehen) oder das Overlay (Weiter-Knopf).
    Die Zeichnung startet schon im Blatt und läuft auf der echten Station nahtlos weiter. */
-function peekTo(t,inflow){if(peekBusy)return;peekBusy=true;moreEl.classList.remove("on");lockScroll(true);
+function peekTo(t,inflow){if(peekBusy)return;peekBusy=true;updateNav(t);moreEl.classList.remove("on");lockScroll(true);
   var H=innerHeight,OV=30,ez="cubic-bezier(.22,1,.36,1)",sheet,inner,glow,top0,anims=[],ov=false;
   preparePeek(t);pIn.style.transform="";pSheet.style.transform="";
   var pk=pIn.querySelector(".kicker"),Kref=pk?pk.getBoundingClientRect().top-pSheet.getBoundingClientRect().top-pSheet.clientTop:0;
