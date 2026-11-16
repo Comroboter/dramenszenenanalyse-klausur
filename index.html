@@ -77,8 +77,8 @@ button,a,label{touch-action:manipulation}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes inR{from{opacity:0;transform:translate3d(28px,0,0)}to{opacity:1;transform:none}}
-@keyframes inL{from{opacity:0;transform:translate3d(-28px,0,0)}to{opacity:1;transform:none}}
+@keyframes inR{from{opacity:0;transform:translate3d(36px,0,0)}to{opacity:1;transform:none}}
+@keyframes inL{from{opacity:0;transform:translate3d(-36px,0,0)}to{opacity:1;transform:none}}
 @keyframes curtainFull{0%,22%{transform:scaleX(1)}100%{transform:scaleX(.045)}}
 @keyframes curtainHalf{0%{transform:scaleX(.55)}100%{transform:scaleX(.045)}}
 @keyframes marker{from{background-size:0% 80%;color:var(--stage-ink)}to{background-size:100% 80%;color:var(--mark-ink)}}
@@ -335,8 +335,8 @@ h3{font-size:18px;font-weight:700}
 .station.first .hero .hl{animation-delay:.3s}
 .station.first .hero > .kicker,.station.first .hero > h1,.station.first .hero > .lede{animation:fadeUp .7s var(--ease) both;animation-delay:.15s}
 .station.first .content > *{animation:fadeUp .6s var(--ease) both;animation-delay:calc(.25s + var(--i,0) * 60ms)}
-.station.fwd .hero > .kicker,.station.fwd .hero > h1,.station.fwd .hero > .lede{animation:inR .45s var(--ease) both}
-.station.back .hero > .kicker,.station.back .hero > h1,.station.back .hero > .lede{animation:inL .45s var(--ease) both}
+.station.fwd .hero > .kicker,.station.fwd .hero > h1,.station.fwd .hero > .lede{animation:inR .6s var(--ease) both}
+.station.back .hero > .kicker,.station.back .hero > h1,.station.back .hero > .lede{animation:inL .6s var(--ease) both}
 .station.fwd .hero > h1,.station.back .hero > h1{animation-delay:.03s}
 .station.fwd .hero > .lede,.station.back .hero > .lede{animation-delay:.06s}
 .station.enter .hero .deco{animation:fadeIn .8s ease both}
@@ -381,7 +381,7 @@ h3{font-size:18px;font-weight:700}
 @keyframes blurIn{from{opacity:0;transform:scale(.97) translate3d(0,8px,0)}to{opacity:1;transform:none}}
 @keyframes curOpen{from{transform:scaleX(8)}to{transform:none}}
 @keyframes valDrop{from{transform:translate3d(0,-70px,0);opacity:0}to{transform:none;opacity:1}}
-.station.enter .hero .deco{animation:fadeIn .9s var(--ease) both}
+.station.enter .hero .deco{animation:fadeIn .7s var(--ease) both}
 .station.enter[data-look="lineal"] .hero .deco{animation:slideIn 1.1s var(--ease) both}
 .station.enter[data-look="epochen"] .hero .deco{animation:gridIn 1.3s var(--ease) both}
 .station.enter[data-look="bauplan"] .hero .deco{animation:gridIn 1.3s var(--ease) both}
@@ -455,8 +455,8 @@ h3{font-size:18px;font-weight:700}
 @keyframes fadenIntro{0%{transform:scaleX(0);opacity:1}60%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1) translateY(-46vh);opacity:0}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .station.enter[data-look="morgen"] .hero .deco::before{animation:sunrise 1.6s var(--ease) .2s both}
-.station.fwd .content > *{animation:inR .55s var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
-.station.back .content > *{animation:inL .55s var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
+.station.fwd .content > *{animation:inR .65s var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
+.station.back .content > *{animation:inL .65s var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
 
 .btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:12px;min-height:46px;padding:10px 18px;cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:15.5px;transition:transform .2s var(--spring),box-shadow .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .btn:active{transform:scale(.97)}
@@ -911,7 +911,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 12:42</p>
+  <p class="buildtag">Stand: 16.11.2026, 12:50</p>
 </nav>
 
 <main id="main">
@@ -1611,8 +1611,17 @@ function updateNav(i){
   document.getElementById("nexttxt").textContent=i===0?"Los":i<N-1?"Weiter":"Zum Start";
   document.getElementById("nt").textContent=i<N-1?stations[i+1].dataset.title:"";
   next.classList.toggle("nudge",i===0)}
-function show(i){if(i===cur)return;var dir=cur<0?0:(i>cur?1:-1),old=stations[cur];
-  if(old){old.classList.remove("on","enter","fwd","back","first");old.style.transform="";old.style.opacity=""}
+var leaveAnim=null;
+function show(i){if(i===cur&&!leaveAnim)return;
+  if(leaveAnim){var la=leaveAnim;leaveAnim=null;la.cancel();if(i===cur)return}
+  var old=stations[cur];
+  if(old&&!RM&&old.animate){var dir=i>cur?1:-1,cs=getComputedStyle(old),from=cs.transform==="none"?"translate3d(0,0,0)":cs.transform;
+    old.style.transition="";updateNav(i);moreEl.classList.remove("on");
+    var a=old.animate([{transform:from,opacity:cs.opacity},{transform:"translate3d("+(-dir*56)+"px,0,0)",opacity:0}],{duration:210,easing:"cubic-bezier(.16,1,.3,1)",fill:"forwards"});
+    leaveAnim=a;setTimeout(function(){if(leaveAnim!==a)return;leaveAnim=null;swapTo(i,dir);a.cancel()},150);return}
+  swapTo(i,cur<0?0:(i>cur?1:-1))}
+function swapTo(i,dir){var old=stations[cur];
+  if(old){old.classList.remove("on","enter","fwd","back","first");old.style.transform="";old.style.opacity="";old.style.transition=""}
   var s=stations[i];s.classList.remove("enter","fwd","back","first");void s.offsetWidth;
   s.classList.add("on","enter",dir>0?"fwd":dir<0?"back":"first");
   var vs=["slide","blur","drop","wipe"];s.setAttribute("data-in",vs[Math.floor(Math.random()*vs.length)]);
@@ -1644,9 +1653,9 @@ scrim.addEventListener("click",closeSheet);
     if(!mode){if(Math.abs(dx)>14&&Math.abs(dx)>Math.abs(dy)*1.5)mode="h";else if(Math.abs(dy)>12){id=null;return}}
     if(mode==="h"&&!RM){var s=stations[cur],lim=(dx>0&&cur===0)||(dx<0&&cur===N-1)?.12:.32;s.style.transition="none";s.style.transform="translateX("+(dx*lim)+"px)";s.style.opacity=String(1-Math.min(.35,Math.abs(dx)/700))}});
   function end(e){if(e.pointerId!==id)return;id=null;var s=stations[cur];
-    if(mode==="h"){s.style.transition="transform .3s cubic-bezier(.2,.8,.2,1),opacity .3s";s.style.transform="";s.style.opacity="";
-      setTimeout(function(){s.style.transition=""},320);
-      if(dx<-70&&cur<N-1)go(cur+1);else if(dx>70&&cur>0)go(cur-1)}
+    if(mode==="h"){var tgt=dx<-70&&cur<N-1?cur+1:dx>70&&cur>0?cur-1:-1;
+      if(tgt>=0){s.style.transition="";go(tgt)}
+      else{s.style.transition="transform .35s cubic-bezier(.16,1,.3,1),opacity .35s";s.style.transform="";s.style.opacity="";setTimeout(function(){s.style.transition=""},360)}}
     mode=null}
   main.addEventListener("pointerup",end);main.addEventListener("pointercancel",end)})();
 
