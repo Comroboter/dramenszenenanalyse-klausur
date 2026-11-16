@@ -1073,9 +1073,9 @@ footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var
   box-shadow:0 -24px 70px -24px var(--pk-a,rgba(0,0,0,.5))}
 .rw-sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:220px;z-index:4;pointer-events:none;background:linear-gradient(var(--pk-a,transparent),rgba(0,0,0,0))}
 .rw-sheet .peek-grab{background:var(--pk,var(--rule))}
-.rw-in{position:relative;padding:0 var(--padx);transform:translate3d(0,14px,0)}
+.rw-in{position:relative;padding:var(--padtop) var(--padx) 0}
 .rw-in .hero{--draw:1}
-@media (max-width:699px){.rw-in{transform:translate3d(0,-2px,0)}}
+
 .rw-in .hero > *{animation:none!important}
 .rw-in .hero .hl,.peek-in .hero .hl{animation:none!important}
 .pk-glow{position:absolute;left:0;right:0;top:0;height:220px;z-index:4;pointer-events:none;background:linear-gradient(var(--pk-a,transparent),rgba(0,0,0,0))}
@@ -1398,7 +1398,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 19:41</p>
+  <p class="buildtag">Stand: 16.11.2026, 20:09</p>
 </nav>
 
 <main id="main">
@@ -2488,11 +2488,11 @@ function tyOf(el){var m=getComputedStyle(el).transform;if(!m||m==="none")return 
 /* Nächste Station hochfahren: das Blatt in der Seite (nach dem Ziehen) oder das Overlay (Weiter-Knopf).
    Die Zeichnung startet schon im Blatt und läuft auf der echten Station nahtlos weiter. */
 function peekTo(t,inflow){if(peekBusy)return;peekBusy=true;updateNav(t);moreEl.classList.remove("on");lockScroll(true);
-  var H=innerHeight,OV=30,ez="cubic-bezier(.22,1,.36,1)",sheet,inner,glow,top0,anims=[],ov=false;
+  var H=innerHeight,OV=0,ez="cubic-bezier(.22,1,.36,1)",sheet,inner,glow,top0,anims=[],ov=false;
   preparePeek(t);pIn.style.transform="";pSheet.style.transform="";
   var pk=pIn.querySelector(".kicker"),Kref=pk?pk.getBoundingClientRect().top-pSheet.getBoundingClientRect().top-pSheet.clientTop:0;
   var rs=inflow&&stations[cur]&&stations[cur].querySelector(".rw-sheet");
-  if(rs&&rs.getClientRects().length&&rs.getBoundingClientRect().top<H-10){window.scrollTo(0,scrollY);sheet=rs;inner=rs.querySelector(".rw-in");glow=rs.querySelector(".pk-glow");top0=rs.getBoundingClientRect().top;sheet.style.height=(H+OV*2)+"px"}
+  if(rs&&rs.getClientRects().length&&rs.getBoundingClientRect().top<H-10){window.scrollTo(0,scrollY);sheet=rs;inner=rs.querySelector(".rw-in");glow=rs.querySelector(".pk-glow");top0=rs.getBoundingClientRect().top;sheet.style.height=(H+40)+"px"}
   else{ov=true;sheet=pSheet;inner=pIn;glow=pGlow;top0=H;sheet.style.height="calc(100% + "+OV+"px)";sheet.style.borderRadius="28px 28px 0 0";sheet.style.transform="translate3d(0,"+H+"px,0)";peek.classList.add("on")}
   var dy=-OV-top0,dist=Math.abs(dy),dur=Math.round(380+240*Math.min(1,dist/H));
   var kc0=inner.querySelector(".kicker"),crun=inner.querySelector(".runway");if(crun&&kc0){crun.style.marginTop="";var need=H-padB()-(crun.getBoundingClientRect().top-kc0.getBoundingClientRect().top+Kref);if(need>0){crun.style.marginTop=need+"px";crun.style.setProperty("--rw-up",Math.max(0,need-14)+"px")}}
@@ -2501,6 +2501,7 @@ function peekTo(t,inflow){if(peekBusy)return;peekBusy=true;updateNav(t);moreEl.c
   anims.push(sheet.animate([{transform:"translate3d(0,"+(ov?H:0)+"px,0)"},{transform:"translate3d(0,"+(ov?-OV:dy)+"px,0)"}],{duration:dur,easing:ez,fill:"forwards"}));
   anims.push(inner.animate([{transform:"translate3d(0,"+ty0+"px,0)"},{transform:"translate3d(0,"+(ty0+L)+"px,0)"}],{duration:dur,easing:ez,fill:"forwards"}));
   if(glow)anims.push(glow.animate([{opacity:1},{opacity:0}],{duration:dur,easing:"ease-out",fill:"forwards"}));
+  anims.push(sheet.animate([{borderTopLeftRadius:"28px",borderTopRightRadius:"28px",borderTopColor:getComputedStyle(sheet).borderTopColor,offset:0},{borderTopLeftRadius:"28px",borderTopRightRadius:"28px",offset:.55},{borderTopLeftRadius:"0px",borderTopRightRadius:"0px",borderTopColor:"rgba(0,0,0,0)",offset:1}],{duration:dur,easing:"ease-out",fill:"forwards"}));var grb=sheet.querySelector(".peek-grab");if(grb)anims.push(grb.animate([{opacity:.8},{opacity:0}],{duration:dur*.6,easing:"ease-out",fill:"forwards"}));
   if(ov)anims.push(pDim.animate([{opacity:0},{opacity:.3}],{duration:dur,easing:ez,fill:"forwards"}));
   var fin=false,safe=setTimeout(function(){if(!fin&&anims[0].onfinish)anims[0].onfinish()},dur+900);
   anims[0].onfinish=function(){if(fin)return;fin=true;clearTimeout(safe);var F=kc?kc.getBoundingClientRect():null;
