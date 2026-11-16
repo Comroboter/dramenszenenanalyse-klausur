@@ -328,17 +328,17 @@ h3{font-size:18px;font-weight:700}
 @keyframes sunrise{from{transform:translateY(70px)}to{transform:none}}
 @keyframes marker{from{background-size:0% 80%;color:var(--ink)}to{background-size:100% 80%;color:var(--hl-ink)}}
 .station.first .cur{animation:none}
-.station.fwd .cur,.station.back .cur{animation:curOpen .85s cubic-bezier(.6,0,.2,1) both}
+.station.fwd .cur,.station.back .cur{animation:curOpen .85s cubic-bezier(.16,1,.3,1) both}
 .station.enter .val{animation:valDrop .6s var(--ease) both}
 .station.enter .hero .faden::before{animation:faden .9s var(--ease) .2s both}
-.station.enter .hero .hl{animation:marker .6s var(--ease) both;animation-delay:.4s}
-.station.first .hero .hl{animation-delay:.95s}
-.station.first .hero > .kicker,.station.first .hero > h1,.station.first .hero > .lede{animation:fadeUp .7s var(--ease) both;animation-delay:.6s}
-.station.first .content > *{animation:fadeUp .6s var(--ease) both;animation-delay:calc(.95s + var(--i,0) * 80ms)}
+.station.enter .hero .hl{animation:marker .55s var(--ease) both;animation-delay:.1s}
+.station.first .hero .hl{animation-delay:.3s}
+.station.first .hero > .kicker,.station.first .hero > h1,.station.first .hero > .lede{animation:fadeUp .7s var(--ease) both;animation-delay:.15s}
+.station.first .content > *{animation:fadeUp .6s var(--ease) both;animation-delay:calc(.25s + var(--i,0) * 60ms)}
 .station.fwd .hero > .kicker,.station.fwd .hero > h1,.station.fwd .hero > .lede{animation:inR .45s var(--ease) both}
 .station.back .hero > .kicker,.station.back .hero > h1,.station.back .hero > .lede{animation:inL .45s var(--ease) both}
-.station.fwd .hero > h1,.station.back .hero > h1{animation-delay:.05s}
-.station.fwd .hero > .lede,.station.back .hero > .lede{animation-delay:.1s}
+.station.fwd .hero > h1,.station.back .hero > h1{animation-delay:.03s}
+.station.fwd .hero > .lede,.station.back .hero > .lede{animation-delay:.06s}
 .station.enter .hero .deco{animation:fadeIn .8s ease both}
 @keyframes gridIn{from{opacity:0;background-size:56px 56px,56px 56px,11px 11px,11px 11px}to{opacity:1}}
 @keyframes pageIn{from{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset(0 0 100% 0)}to{-webkit-clip-path:inset(0);clip-path:inset(0)}}
@@ -354,24 +354,24 @@ h3{font-size:18px;font-weight:700}
 @keyframes dropIn{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:none}}
 .station.enter[data-look="bauplan"] .hero .deco{animation:gridIn 1.1s var(--ease) both}
 .station.enter[data-look="bauplan"] .hero .deco::after{animation:popIn .8s var(--ease) .35s both}
-.station.enter[data-look="lineal"] .hero .deco{animation:sweepIn .9s cubic-bezier(.6,0,.2,1) both}
-.station.enter[data-look="papier"] .hero .deco{animation:pageIn 1s cubic-bezier(.5,0,.2,1) both}
+.station.enter[data-look="lineal"] .hero .deco{animation:sweepIn .9s cubic-bezier(.16,1,.3,1) both}
+.station.enter[data-look="papier"] .hero .deco{animation:pageIn 1s cubic-bezier(.16,1,.3,1) both}
 .station.enter[data-look="zeitraum"] .hero .deco{animation:arcsIn 1.1s var(--ease) both}
 .station.enter[data-look="antike"] .hero .deco::before{animation:meanderIn 1.1s var(--ease) both}
-.station.enter[data-look="antike"] .stage::before{animation:meanderIn 1.3s var(--ease) .3s both}
+.station.enter[data-look="antike"] .stage::before{animation:meanderIn 1.2s var(--ease) .1s both}
 .station.enter[data-look="split"] .hero .deco{animation:none}
 .station.enter[data-look="split"] .hero .deco::before{animation:fromL .7s var(--ease) both}
 .station.enter[data-look="split"] .hero .deco::after{animation:fromR .7s var(--ease) .08s both}
 .station.enter[data-look="dialog"] .hero .deco::before{animation:popIn .55s var(--ease) .25s both}
 .station.enter[data-look="dialog"] .hero .deco::after{animation:popIn .55s var(--ease) .55s both}
-.station.enter[data-look="epochen"] .hero .deco{animation:sweepIn 1.2s cubic-bezier(.6,0,.2,1) both}
+.station.enter[data-look="epochen"] .hero .deco{animation:sweepIn 1.2s cubic-bezier(.16,1,.3,1) both}
 [data-look="epochen"] .hero .deco::after{transform-origin:100% 0}
 .station.enter[data-look="epochen"] .hero .deco::after{animation:raysIn 1.4s var(--ease) .5s both}
-.station.enter[data-look="probe"] .hero .deco::before{animation:lampOn 1.1s linear .2s both}
+.station.enter[data-look="probe"] .hero .deco::before{animation:lampOn 1.1s linear both}
 .station.enter[data-in="blur"] .hero > h1{animation:blurIn .75s var(--ease) both!important}
 .station.enter[data-in="drop"] .hero > h1{animation:dropIn .6s var(--spring) both!important}
-.station.enter[data-in="wipe"] .hero > h1{animation:sweepIn .7s cubic-bezier(.6,0,.2,1) both!important}
-.station.enter[data-in="blur"] .hero .hl,.station.enter[data-in="wipe"] .hero .hl{animation-delay:.6s}
+.station.enter[data-in="wipe"] .hero > h1{animation:sweepIn .7s cubic-bezier(.16,1,.3,1) both!important}
+.station.enter[data-in="blur"] .hero .hl,.station.enter[data-in="wipe"] .hero .hl{animation-delay:.25s}
 
 /* Nur noch Verschieben, Skalieren, Ausblenden: läuft auch auf dem iPad flüssig */
 @keyframes gridIn{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
@@ -386,7 +386,7 @@ h3{font-size:18px;font-weight:700}
 .station.enter[data-look="epochen"] .hero .deco{animation:gridIn 1.3s var(--ease) both}
 .station.enter[data-look="bauplan"] .hero .deco{animation:gridIn 1.3s var(--ease) both}
 .station.enter[data-look="papier"] .hero .deco{animation:pageIn 1.1s var(--ease) both}
-.station.fwd .cur,.station.back .cur{animation:curOpen 1s cubic-bezier(.65,0,.35,1) both}
+.station.fwd .cur,.station.back .cur{animation:curOpen 1s cubic-bezier(.16,1,.3,1) both}
 .station.enter .val{animation:valDrop .9s var(--ease) both}
 .spot{position:absolute;z-index:-1;left:0;top:0;width:1000px;height:1000px;margin:-500px 0 0 -500px;border-radius:50%;pointer-events:none;will-change:transform;background:radial-gradient(circle,var(--glow) 0,rgba(0,0,0,0) 62%)}
 @media (max-width:699px){.spot{width:700px;height:700px;margin:-350px 0 0 -350px}}
@@ -404,7 +404,7 @@ h3{font-size:18px;font-weight:700}
 .fadenline{position:absolute;z-index:0;left:calc(-1 * var(--padx));right:calc(-1 * var(--padx) - var(--extra));bottom:6px;width:calc(100% + 2 * var(--padx) + var(--extra));height:140px;overflow:visible;pointer-events:none}
 .fadenline path{fill:none;stroke:var(--thread);stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0}
 .fadenline circle{fill:var(--thread);opacity:0}
-.station.enter .fadenline path{animation:drawThread 2.2s cubic-bezier(.65,0,.35,1) .35s both}
+.station.enter .fadenline path{animation:drawThread 2s cubic-bezier(.16,1,.3,1) both}
 .station.enter .fadenline circle{animation:knot .5s var(--spring) 1.9s both}
 @keyframes drawThread{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes knot{from{opacity:0;transform:scale(0)}to{opacity:1;transform:none}}
@@ -419,8 +419,8 @@ h3{font-size:18px;font-weight:700}
 .art path.g{stroke:#6f9c26}.art path.b{stroke:#2e8eab}.art path.r{stroke:var(--rust);opacity:.7}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .art path.g{stroke:#a6d65a}:root:not([data-theme="light"]) .art path.b{stroke:#6cc6e0}}
 :root[data-theme="dark"] .art path.g{stroke:#a6d65a}:root[data-theme="dark"] .art path.b{stroke:#6cc6e0}
-.station.enter .art .d{stroke-dasharray:1;animation:drawThread 1.5s cubic-bezier(.65,0,.35,1) both;animation-delay:calc(.3s + var(--d,0) * .22s)}
-.station.enter .art .blink{animation:drawThread .4s linear 1.2s both,blink 1s steps(1) 1.6s infinite}
+.station.enter .art .d{stroke-dasharray:1;animation:drawThread 1.3s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d,0) * .1s)}
+.station.enter .art .blink{animation:drawThread .3s cubic-bezier(.16,1,.3,1) .3s both,blink 1s steps(1) .8s infinite}
 @media (min-width:700px){.hero:has(.art) > .kicker,.hero:has(.art) > h1,.hero:has(.art) > .lede{max-width:66%}}
 @media (min-width:700px){.hero > .kicker,.hero > h1,.hero > .lede{max-width:66%}}
 @media (max-width:699px){.art{top:20px;right:-4px;width:104px;transform:none;opacity:.85}.hero > .kicker{padding-right:110px}}
@@ -442,21 +442,21 @@ h3{font-size:18px;font-weight:700}
 .intro .p{position:absolute;top:0;bottom:0;width:50.5%;will-change:transform}
 .intro .p.l{background:linear-gradient(90deg,#24123f,#3a1f63)}
 .intro .p.r{background:linear-gradient(270deg,#24123f,#3a1f63)}
-.intro.vorhang .p.l{left:0;box-shadow:12px 0 40px rgba(0,0,0,.35);animation:introL 1.1s cubic-bezier(.76,0,.24,1) .15s both}
-.intro.vorhang .p.r{right:0;box-shadow:-12px 0 40px rgba(0,0,0,.35);animation:introR 1.1s cubic-bezier(.76,0,.24,1) .15s both}
+.intro.vorhang .p.l{left:0;box-shadow:12px 0 40px rgba(0,0,0,.35);animation:introL 1.1s cubic-bezier(.16,1,.3,1) both}
+.intro.vorhang .p.r{right:0;box-shadow:-12px 0 40px rgba(0,0,0,.35);animation:introR 1.1s cubic-bezier(.16,1,.3,1) both}
 @keyframes introL{to{transform:translateX(-104%)}}
 @keyframes introR{to{transform:translateX(104%)}}
-.intro.hoch .p{left:0;width:100%;background:linear-gradient(#24123f,#3a1f63);box-shadow:0 18px 50px rgba(0,0,0,.35);animation:introUp 1.05s cubic-bezier(.76,0,.24,1) .15s both}
+.intro.hoch .p{left:0;width:100%;background:linear-gradient(#24123f,#3a1f63);box-shadow:0 18px 50px rgba(0,0,0,.35);animation:introUp 1.05s cubic-bezier(.16,1,.3,1) both}
 @keyframes introUp{to{transform:translateY(-108%)}}
 .intro.licht .hole{position:absolute;left:68%;top:32%;width:300vmax;height:300vmax;margin:-150vmax 0 0 -150vmax;background:rgba(11,12,15,.94);will-change:transform,opacity;
-  -webkit-mask-image:radial-gradient(circle,rgba(0,0,0,0) 2.5%,#000 6%);mask-image:radial-gradient(circle,rgba(0,0,0,0) 2.5%,#000 6%);animation:iris 1.25s cubic-bezier(.65,0,.35,1) .1s both}
-@keyframes iris{0%{transform:scale(1)}30%{transform:scale(3)}85%{opacity:1}100%{transform:scale(22);opacity:0}}
-.intro.faden i{position:absolute;left:0;top:50%;height:3px;width:100%;background:var(--thread);transform-origin:left;animation:fadenIntro 1.1s cubic-bezier(.6,0,.2,1) both}
+  -webkit-mask-image:radial-gradient(circle,rgba(0,0,0,0) 2.5%,#000 6%);mask-image:radial-gradient(circle,rgba(0,0,0,0) 2.5%,#000 6%);animation:iris 1.25s cubic-bezier(.16,1,.3,1) both}
+@keyframes iris{0%{transform:scale(1.4)}80%{opacity:1}100%{transform:scale(22);opacity:0}}
+.intro.faden i{position:absolute;left:0;top:50%;height:3px;width:100%;background:var(--thread);transform-origin:left;animation:fadenIntro 1.1s cubic-bezier(.16,1,.3,1) both}
 @keyframes fadenIntro{0%{transform:scaleX(0);opacity:1}60%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1) translateY(-46vh);opacity:0}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .station.enter[data-look="morgen"] .hero .deco::before{animation:sunrise 1.6s var(--ease) .2s both}
-.station.fwd .content > *{animation:inR .5s var(--ease) both;animation-delay:calc(.15s + var(--i,0) * 55ms)}
-.station.back .content > *{animation:inL .5s var(--ease) both;animation-delay:calc(.15s + var(--i,0) * 55ms)}
+.station.fwd .content > *{animation:inR .55s var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
+.station.back .content > *{animation:inL .55s var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
 
 .btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:12px;min-height:46px;padding:10px 18px;cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:15.5px;transition:transform .2s var(--spring),box-shadow .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .btn:active{transform:scale(.97)}
@@ -507,7 +507,7 @@ h3{font-size:18px;font-weight:700}
 .glb{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow)}
 .glb h3{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .glbar{height:8px;border-radius:8px;background:var(--rule);margin:10px 0 12px;overflow:hidden}
-.glbar i{display:block;height:100%;background:var(--pen);border-radius:8px;transform-origin:left;animation:grow 1s var(--ease) .5s both}
+.glbar i{display:block;height:100%;background:var(--pen);border-radius:8px;transform-origin:left;animation:grow 1s var(--ease) .15s both}
 .glb ol{margin:0;padding-left:20px;font-size:15px;display:grid;gap:4px}
 .glb ol li::marker{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
 .items{border-top:2px solid var(--ink)}
@@ -542,7 +542,7 @@ h3{font-size:18px;font-weight:700}
 .inline-in{display:flex;gap:10px;align-items:center;margin-bottom:14px;font-family:var(--font-mono);font-size:13px}
 .inline-in input{width:90px;min-height:42px;padding:6px 10px;border:1px solid var(--rule);border-radius:10px;background:var(--paper);font-size:16px}
 .stack{display:flex;height:36px;border-radius:10px;overflow:hidden;margin-bottom:12px}
-.stack span{display:grid;place-items:center;font-family:var(--font-mono);font-size:11.5px;color:var(--mark-ink);transition:flex-grow .5s var(--ease);transform-origin:left;white-space:nowrap;overflow:hidden;animation:grow .7s var(--ease) both;animation-delay:calc(.4s + var(--j) * 90ms)}
+.stack span{display:grid;place-items:center;font-family:var(--font-mono);font-size:11.5px;color:var(--mark-ink);transition:flex-grow .5s var(--ease);transform-origin:left;white-space:nowrap;overflow:hidden;animation:grow .7s var(--ease) both;animation-delay:calc(.1s + var(--j) * 70ms)}
 .plan{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:13px;font-variant-numeric:tabular-nums}
 .plan td{padding:6px 0;border-bottom:1px dashed var(--rule)}
 .plan td:nth-child(n+2){text-align:right;padding-left:10px;white-space:nowrap}
@@ -612,13 +612,13 @@ h3{font-size:18px;font-weight:700}
 .stelle.o{background:linear-gradient(var(--offen),var(--offen)) no-repeat 0 0/100% 100%;color:var(--mark-ink)}
 .stelle.v{background:linear-gradient(var(--verdeckt),var(--verdeckt)) no-repeat 0 0/100% 100%;color:var(--mark-ink)}
 .stelle.o.sel,.stelle.v.sel{outline:2px solid var(--pen);outline-offset:1px}
-.station.enter .stelle{animation:drawLine .6s var(--ease) both;animation-delay:calc(.6s + var(--k) * 140ms)}
-.station.enter .stelle.o,.station.enter .stelle.v{animation:drawBg .7s var(--ease) both;animation-delay:calc(.6s + var(--k) * 140ms)}
+.station.enter .stelle{animation:drawLine .6s var(--ease) both;animation-delay:calc(.15s + var(--k) * 90ms)}
+.station.enter .stelle.o,.station.enter .stelle.v{animation:drawBg .7s var(--ease) both;animation-delay:calc(.15s + var(--k) * 90ms)}
 .margin{display:flex;flex-direction:column;gap:12px;border-top:1px dashed var(--rule);padding-top:16px}
 @media (min-width:760px){.margin{border-top:none;padding-top:0;border-left:1px dashed var(--rule);padding-left:24px;min-height:230px}}
 .margin .q{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);animation:fadeUp .4s var(--ease) both}
-.margin .yours{font-family:var(--font-hand);font-weight:600;color:var(--pen);font-size:29px;line-height:1.08;animation:wipe .9s cubic-bezier(.5,0,.3,1) .1s both}
-.margin p{margin:0;font-size:15.5px;animation:fadeUp .5s var(--ease) .45s both}
+.margin .yours{font-family:var(--font-hand);font-weight:600;color:var(--pen);font-size:29px;line-height:1.08;animation:wipe .9s cubic-bezier(.16,1,.3,1) both}
+.margin p{margin:0;font-size:15.5px;animation:fadeUp .5s var(--ease) .15s both}
 .stepper{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:8px}
 .stepper button.dotb{all:unset;cursor:pointer;width:28px;height:28px;display:grid;place-items:center}
 .stepper button.dotb::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--rule);transition:background .2s,transform .3s var(--spring)}
@@ -655,7 +655,7 @@ h3{font-size:18px;font-weight:700}
 
 /* ---------- Epochen ---------- */
 .timeline{position:relative;height:70px}
-.timeline .bar{position:absolute;top:30px;height:14px;border-radius:3px;transform-origin:left;animation:grow .9s var(--ease) both;animation-delay:calc(.5s + var(--j) * 200ms)}
+.timeline .bar{position:absolute;top:30px;height:14px;border-radius:3px;transform-origin:left;animation:grow .9s var(--ease) both;animation-delay:calc(.1s + var(--j) * 120ms)}
 .timeline .lab{position:absolute;top:0;font-family:var(--font-display);font-weight:700;font-size:14px;white-space:nowrap}
 .timeline .yr{position:absolute;top:50px;font-family:var(--font-mono);font-size:11px;color:var(--muted);transform:translateX(-50%)}
 .epo-ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
@@ -758,6 +758,94 @@ canvas#confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-event
 .todo-chips a{text-decoration:none;color:inherit}
 footer.src{margin-top:40px;font-family:var(--font-mono);font-size:12px;color:var(--muted);max-width:72ch;line-height:1.7}
 
+
+/* ---------- Großer Bildschirm: mehr auf einen Blick ---------- */
+@media (min-width:900px){
+  .hero:not(#s-start .hero){padding:24px 0 20px}
+  .hero:not(#s-start .hero) h1{font-size:clamp(32px,3.6vw,46px)}
+  .hero:not(#s-start .hero) .lede{margin-top:8px;font-size:16px;line-height:1.55}
+  .hero:not(#s-start .hero) .kicker{margin-bottom:8px}
+  .art{width:min(230px,25%)}
+  .content{margin-top:16px}
+  .content h2{margin-top:30px}
+  .nextcard{margin-top:32px}
+  .items-head{margin-top:14px}
+  /* Gliederungspunkte | Kartenstapel */
+  #s-handlung .content,#s-figuren .content{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;align-items:start}
+  #s-handlung .content > [data-items],#s-figuren .content > [data-items]{grid-column:1;grid-row:1 / span 2}
+  #s-handlung .content > h2,#s-figuren .content > h2{grid-column:2;grid-row:1;margin-top:14px;margin-bottom:0}
+  #s-handlung .content > .deck,#s-figuren .content > .deck{grid-column:2;grid-row:2;margin-top:8px}
+  #s-handlung .content > .nextcard,#s-figuren .content > .nextcard{grid-column:1 / -1}
+  #s-handlung .deck-stage,#s-figuren .deck-stage{height:270px}
+  #s-handlung .deck-ctrl,#s-figuren .deck-ctrl{margin-top:34px}
+  /* Sortieren: Karten | Kästen */
+  #s-sortieren .content{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:28px;align-items:start}
+  #s-sortieren .pool{grid-column:1;grid-row:1 / span 2;margin-top:0}
+  #s-sortieren .buckets{grid-column:2;grid-row:1;grid-template-columns:1fr;margin-top:0}
+  #s-sortieren .sortfoot{grid-column:2;grid-row:2}
+  #s-sortieren .content > .nextcard{grid-column:1 / -1}
+  #s-sortieren .pool .sitem{grid-template-columns:1fr auto}
+  #s-sortieren .bucket{min-height:90px}
+  /* Handwerk: Stilmittel | Zitieren */
+  #s-handwerk .content{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:32px;align-items:start}
+  #s-handwerk .content > *{grid-column:1 / -1}
+  #s-handwerk .content > h2:nth-of-type(2){grid-column:1}
+  #s-handwerk .content > .vs{grid-column:1}
+  #s-handwerk .content > .zit{grid-column:2;grid-row:3 / span 2;margin-top:30px!important}
+  /* Plan: Zeitplan kompakt */
+  #s-plan .zeitplan{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;align-items:start}
+  #s-plan .zeitplan > *{grid-column:1}
+  #s-plan .zeitplan .plan{grid-column:2;grid-row:1 / span 4}
+  #s-plan .gl ol{font-size:14.5px}
+  /* Kurz vor der Klausur */
+  .rules{grid-template-columns:1fr 1fr}
+  /* Feinschliff, damit mehr ohne Scrollen passt */
+  .hero:not(#s-start .hero){padding:18px 0 14px}
+  .hero:not(#s-start .hero) .lede{font-size:15.5px;line-height:1.5}
+  .item .row{padding:2px 0}
+  #s-handlung .deck-stage,#s-figuren .deck-stage{height:240px}
+  #s-handlung .deck-ctrl,#s-figuren .deck-ctrl{margin-top:28px}
+  .round{width:50px;height:50px}
+  .swipehint{margin-top:8px}
+  #s-sortieren .sitem{padding:8px 12px;font-size:15px;gap:8px}
+  #s-sortieren .sitem button{min-height:38px}
+  #s-sortieren .pool{gap:8px}
+  .steps4 > div{padding:14px 14px 15px}
+  .vs{gap:8px;margin-top:10px}.vs div{padding:10px 14px}
+  .cite-list{gap:7px;font-size:15px}
+  #s-plan .glb{padding:14px 18px}
+  #s-plan .glbar{margin:8px 0 10px}
+  #s-plan .gl ol{gap:2px}
+  #s-plan .zeitplan .note{display:none}
+  #s-sortieren .bucket{min-height:76px;padding:10px}
+  .items-head h2{margin:0!important}
+  #s-handlung .content > [data-items] .items-head,#s-figuren .content > [data-items] .items-head{margin-top:14px}
+  #s-handwerk .content h2{margin-top:22px}
+  #s-handwerk .content > h2:first-child{margin-top:0}
+  #s-plan .gl ol{font-size:14px;line-height:1.4}
+  #s-plan .glb h3{font-size:17px}
+  #s-plan .zeitplan{padding:16px 20px;margin-top:16px!important}
+  #s-plan .zeitplan h3{margin-bottom:8px}
+  #s-plan .inline-in{margin-bottom:10px}
+  #s-plan .plan td{padding:4px 0}
+  /* Epochen */
+  #s-epochen .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+}
+
+/* ---------- "Weiter unten"-Hinweis ---------- */
+.morepill{position:fixed;z-index:25;left:50%;bottom:calc(var(--bar) + var(--sab) + 14px);transform:translate(-50%,14px);opacity:0;pointer-events:none;
+  display:inline-flex;align-items:center;gap:8px;max-width:calc(100vw - 32px);padding:9px 16px 9px 13px;border-radius:22px;border:1px solid var(--rule);
+  background:var(--sheet);color:var(--ink);box-shadow:0 10px 30px -12px rgba(0,0,0,.45);font-family:var(--font-display);font-size:14.5px;cursor:pointer;
+  transition:opacity .35s var(--ease),transform .45s var(--ease)}
+.morepill span{color:var(--muted);font-weight:500;white-space:nowrap}
+.morepill b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.morepill svg{color:var(--thread);flex:none}
+.morepill.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.morepill.on svg{animation:nudgeDown 1.6s var(--ease) 2}
+@keyframes nudgeDown{0%,100%{transform:none}45%{transform:translateY(3px)}}
+.morepill:active{transform:translate(-50%,0) scale(.96)}
+@media (min-width:1100px){.morepill{left:calc(var(--side) + min(1040px,100vw - var(--side)) / 2)}}
+
 /* ---------- Lesefassung ohne JavaScript ---------- */
 .js .nojs-banner,.nojs .js-only{display:none!important}
 .nojs-banner{background:var(--sheet);border:1px solid var(--rule);border-left:4px solid var(--thread);border-radius:12px;padding:14px 16px;margin:0 0 10px;font-size:15px;line-height:1.5}
@@ -823,7 +911,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <span><span class="tag u">Unterlagen</span> aus den Unterlagen</span>
     <span><span class="tag">Ergänzung</span> Standardwissen</span>
   </div>
-  <p class="buildtag">Stand: 16.11.2026, 12:27</p>
+  <p class="buildtag">Stand: 16.11.2026, 12:42</p>
 </nav>
 
 <main id="main">
@@ -849,7 +937,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
     <p class="lede">So ist eine Szenenanalyse aufgebaut. Die einzelnen Punkte gehst du in den nächsten Stationen genauer durch, hier geht es erstmal um das Gesamtbild und die Zeit.</p></header>
   <div class="content">
     <div class="gl" id="gl"><div class="glb"><h3>Einleitung<span class="sub">ca. ½ Seite</span></h3><div class="glbar"><i style="width:15%"></i></div><ol><li>Origineller Einstieg mit Aktualitätsbezug</li><li>Autor, Titel, Erscheinungsjahr, Thema, historischer Kontext</li><li>Ort und Zeit, auftretende Personen</li><li>Kurze Inhaltsangabe</li><li>Einordnung der Szene in die Gesamthandlung</li><li>Deutungshypothese</li></ol></div><div class="glb"><h3>Hauptteil<span class="sub">ca. ⅔ des Textes</span></h3><div class="glbar"><i style="width:70%"></i></div><ol><li>Offene und verdeckte Handlung</li><li>Zeitstruktur</li><li>Raumkonzeption</li><li>Absichten der Gesprächspartner</li><li>Reaktionen aufeinander</li><li>Redeanteile und gesellschaftliche Stellung</li><li>Redestrategien</li><li>Beziehung, Charakter, kommunikativer Prozess</li></ol></div><div class="glb"><h3>Schluss<span class="sub">ca. ½ Seite</span></h3><div class="glbar"><i style="width:15%"></i></div><ol><li>Zusammenfassung und Bedeutung für die Gesamthandlung</li><li>Deutungshypothese verifizieren, falsifizieren oder modifizieren</li><li>Epochenbezug</li><li>Wirkung damals und heute, Autorenintention</li></ol></div></div>
-    <div class="panel" style="margin-top:22px">
+    <div class="panel zeitplan" style="margin-top:22px">
       <h3>Zeitplan für die Klausur</h3>
       <div class="inline-in js-only"><label for="mins">Dauer in Minuten</label><input id="mins" type="number" inputmode="numeric" min="45" max="300" step="5" value="135"></div>
       <div class="stack" id="stack" aria-hidden="true"></div>
@@ -878,7 +966,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
       <div class="bad"><small>Bringt kaum Punkte</small>In Vers 12 steht eine rhetorische Frage.</div>
       <div class="good"><small>So ist es richtig</small>Mit der rhetorischen Frage „…“ (V. 12) stellt Antigone ihr Leid als unbestreitbar dar und setzt Ismene unter Druck.</div>
     </div>
-    <div class="panel" style="margin-top:26px">
+    <div class="panel zit" style="margin-top:26px">
       <h3>Zitieren und Tempus</h3>
       <ul class="cite-list">
         <li>Vers oder Zeile angeben: <code>(V. 12)</code>, <code>(Z. 12 f.)</code> für zwei, <code>(V. 12 ff.)</code> für mehrere</li>
@@ -1104,6 +1192,7 @@ details.s-sol p{margin:6px 0 4px;font-size:15px}
 
 </main>
 
+<button class="morepill js-only" id="more" aria-live="polite" tabindex="-1"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 2v9M3 7.5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Weiter unten:</span><b id="moretxt"></b></button>
 <div class="bottombar">
   <div class="bb-in">
     <button class="navbtn" id="prev" aria-label="Vorherige Station"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3L5 9l6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1315,7 +1404,7 @@ function Deck(root){
       stage.appendChild(c);if(i===0)bind(c)}}
   function act(kind,c){c=c||stage.querySelector('.dcard[data-pos="0"]');if(!c||c._gone)return;c._gone=true;
     var dir=kind==="yes"?1:-1;c.classList.remove("drag");
-    c.style.transition=RM?"none":"transform .38s cubic-bezier(.4,0,.6,1),opacity .38s";
+    c.style.transition=RM?"none":"transform .38s cubic-bezier(.16,1,.3,1),opacity .38s";
     c.style.transform="translateX("+(dir*130)+"%) rotate("+(dir*16)+"deg)";c.style.opacity="0";
     var b=queue.shift();if(kind==="yes"){known[b[0]]=true;store.set("known",known);buzz(10)}else queue.push(b);
     stage.querySelectorAll('.dcard[data-pos="1"]').forEach(function(n){n.setAttribute("data-pos","0")});
@@ -1498,12 +1587,25 @@ var hooks={
 };
 
 function setRing(i){var fg=document.getElementById("ringfg"),C=100.5;fg.style.strokeDashoffset=String(C-C*(i+1)/N);document.getElementById("ringtx").textContent=i+1}
+function scrollFrac(){var max=document.documentElement.scrollHeight-innerHeight;return max>40?Math.min(1,Math.max(0,scrollY/max)):1}
+function setProg(i,f){pathList.style.setProperty("--p",N>1?Math.min(1,(i+f)/(N-1)):0);document.getElementById("tbfill").style.width=((i+Math.max(f,.12))/N*100)+"%"}
+var moreEl=document.getElementById("more"),moreTxt=document.getElementById("moretxt"),moreTarget=null,ticking=false;
+function updateMore(){ticking=false;if(cur<0)return;setProg(cur,scrollFrac());
+  var s=stations[cur],limit=innerHeight-(document.querySelector(".bottombar").offsetHeight||70)-30,next=null,left=0;
+  s.querySelectorAll(".content h2").forEach(function(h){var t=h.getBoundingClientRect().top;if(t>limit&&h.offsetParent){if(!next)next=h;left++}});
+  var nearEnd=document.documentElement.scrollHeight-innerHeight-scrollY<60;
+  if(next&&!nearEnd&&!pathEl.classList.contains("open")){moreTarget=next;moreTxt.textContent=next.textContent.replace(/\s+/g," ").trim()+(left>1?"  +"+(left-1):"");moreEl.classList.add("on")}
+  else{moreEl.classList.remove("on");moreTarget=null}}
+function reqMore(){if(!ticking){ticking=true;requestAnimationFrame(updateMore)}}
+window.addEventListener("scroll",reqMore,{passive:true});window.addEventListener("resize",reqMore);
+document.addEventListener("click",function(){setTimeout(reqMore,480)});
+moreEl.addEventListener("click",function(e){e.stopPropagation();if(!moreTarget)return;var off=(DESK.matches?24:(document.querySelector(".topbar").offsetHeight+16));
+  window.scrollTo({top:scrollY+moreTarget.getBoundingClientRect().top-off,behavior:RM?"auto":"smooth"})});
 function updateNav(i){
-  pathList.style.setProperty("--p",N>1?i/(N-1):0);
+  setProg(i,0);
   pathList.querySelectorAll("li").forEach(function(li,k){var a=li.querySelector("a");li.classList.toggle("done",!!visited[ids[k]]&&k!==i);if(k===i)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   var t=stations[i].dataset.title;
   document.getElementById("tbn").textContent="Station "+(i+1)+" von "+N;document.getElementById("tbt").textContent=t;
-  document.getElementById("tbfill").style.width=((i+1)/N*100)+"%";
   document.getElementById("wsmall").textContent="Station "+(i+1)+" von "+N;document.getElementById("wtitle").textContent=t;setRing(i);
   var prev=document.getElementById("prev"),next=document.getElementById("next");prev.disabled=i===0;
   document.getElementById("nexttxt").textContent=i===0?"Los":i<N-1?"Weiter":"Zum Start";
@@ -1517,7 +1619,8 @@ function show(i){if(i===cur)return;var dir=cur<0?0:(i>cur?1:-1),old=stations[cur
   s.querySelectorAll(".content > *").forEach(function(c,k){c.style.setProperty("--i",Math.min(k,5))});
   cur=i;visited[ids[i]]=1;store.set("visited",visited);if(i>0)store.set("last",ids[i]);
   updateNav(i);closeSheet();window.scrollTo(0,0);
-  if(hooks[ids[i]])hooks[ids[i]]()}
+  if(hooks[ids[i]])hooks[ids[i]]();
+  moreEl.classList.remove("on");setTimeout(reqMore,700)}
 function fromHash(){var h=(location.hash||"").replace("#",""),i=ids.indexOf(h);show(i<0?0:i)}
 function go(i){if(i<0||i>=N)return;if(location.hash==="#"+ids[i])show(i);else location.hash=ids[i]}
 window.addEventListener("hashchange",fromHash);
